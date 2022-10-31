@@ -1,0 +1,105 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+
+<body>
+
+<div class="container">
+    <h3>Find your perfect whip.</h3>
+    <form id="search-form">
+        <div class="form-container">
+            <div class="form-row">
+                <label for="brand"><h4>Brand:</h4></label>
+                <input type="text" id="brand" name="brand"><br />
+            </div>
+            <div class="form-row">
+                <label for="model"><h4>Model:</h4></label>
+                <input type="text" id="model" name="model"><br />
+            </div>
+                <div class="form-row">
+                <label for="year"><h4>Year:</h4></label>
+                <input type="text" id="year" name="year"><br />
+            </div>
+                <div class="form-row">
+                <label for="engineSize"><h4>Engine Size:</h4></label>
+                <input type="text" id="engineSize" name="engineSize"><br />
+            </div>
+            <div class="form-row">
+                <input type="submit" value="Search" onclick="">
+            </div>
+        </div>
+    </form>
+    <div class="search-box" style="height:400px;">
+        
+    </div>
+    </div>
+
+<div class="container-fluid" id="products-container"></div>
+    
+
+</div>
+</body>
+@section Scripts{
+                    <script>
+                        let url = "https://localhost:7096/api/Products?size=100";
+                        let productsList = document.getElementById("products-container");
+                        fetch(url)
+                            .then(response => response.json())
+                            .then(data => showProducts(data))
+                            .catch(ex => {
+                                alert("error ");
+                                console.error(ex);
+                            });
+                            
+                            function showProducts(products) {
+                                var count = 0;
+                                let table = document.createElement("table");
+                                let row = document.createElement("tr");
+                                products.forEach(product => {
+                                    let image = document.createElement("img");
+                                    let text = document.createElement("p");
+                                    let details = product.brand + " " + product.model + " " + product.year + " $" + product.salePrice;
+                                    image.src = product.img;
+                                    text.appendChild(document.createTextNode(details));
+                                    if (count % 4 == 0){
+                                        let row = document.createElement("tr");
+                                        let cell = document.createElement("td");
+                                        cell.appendChild(image);
+                                        cell.appendChild(text);
+                                        row.appendChild(cell);
+                                        table.appendChild(row);
+                                    }
+                                    else {
+                                        let cell = document.createElement("td");
+                                        cell.appendChild(image);
+                                        cell.appendChild(text);
+                                        table.lastElementChild.appendChild(cell);
+                                    }
+                                    count++;
+                                }); 
+                                productsList.appendChild(table);
+                                
+                            }
+
+                            function filterProducts(){
+                                let newUrl = window.location.href
+                                let url = "https://localhost:7096/api/Products?size=100";
+                                let productsList = document.getElementById("products-container");
+                                fetch(url)
+                                    .then(response => response.json())
+                                    .then(data => showProducts(data))
+                                    .catch(ex => {
+                                    alert("error ");
+                                    console.error(ex);
+                            });
+
+                            
+                            }
+                            
+                    </script>
+                } 
+

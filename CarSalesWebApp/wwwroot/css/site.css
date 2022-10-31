@@ -1,0 +1,83 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+table {
+    background-color: #2E394C;
+    border-radius: 20px;
+    padding: 20px;
+
+}
+td {
+    height: 200px;
+    padding: 0.7vw;
+    width: 15%;
+}
+tr {
+    border-radius: 50px;
+    margin: 5px;
+}
+h3 {
+    color: white;
+    text-align:center;
+}
+td p {
+    color: white;
+    text-align: center;
+    margin-top: -7px;
+    padding-top: 17px;
+    background: blue;
+    height: 60px;
+    border-radius: 0px 0px 14px 14px
+}
+td img {
+    
+    width: 100%;
+    border-radius: 8px;
+}
+navbar-nav nav-item:hover {
+    border-bottom: 3px solid red;
+}
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    color: white;
+}
+#register {
+    border-bottom: double;
+    border-color: aqua;
+    margin-right: 10px;
+    margin: 0px 10px;
+}
+#login {
+    border-bottom: double;
+    border-color: aqua;
+    margin: 0px 10px;
+}
+form-container {
+    padding: 20px;
+    justify-items: center;
+    display:grid;
+}
+form-row {
+    display:table-row;
+}
+label, input {
+    display: table-cell;
+    margin-bottom: 10px;
+}
