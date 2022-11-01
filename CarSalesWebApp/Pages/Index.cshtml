@@ -6,30 +6,32 @@
 
 
 
-<body onload="loadPage();">
+<body>
 
 <div class="container">
     <h3>Find your perfect whip.</h3>
-    <form id="search-form">
+    <form id="search-form" method="GET">
         <div class="form-container">
             <div class="form-row">
-                <label for="brand"><h4>Brand:</h4></label>
-                <input type="text" id="brand" name="brand"><br />
+                @Html.Label("brand", "Brand", new {@class = "h4"})
+                @Html.TextBox("brand", "", new {@id = "brand", @name="brand"})
             </div>
             <div class="form-row">
-                <label for="model"><h4>Model:</h4></label>
-                <input type="text" id="model" name="model"><br />
+                @Html.Label("model", "Model", new {@class = "h4"})
+                @Html.TextBox("model", "", new {@id = "model", @name="model"})
             </div>
                 <div class="form-row">
-                <label for="year"><h4>Year:</h4></label>
-                <input type="text" id="year" name="year"><br />
+                @Html.Label("year", "Year", new {@class = "h4"})
+                @Html.TextBox("year", "", new {@id = "year", @name="year"})
+                
             </div>
                 <div class="form-row">
-                <label for="engineSize"><h4>Engine Size:</h4></label>
-                <input type="text" id="engineSize" name="engineSize"><br />
+                @Html.Label("engineSize", "Engine Size", new {@class = "h4"})
+                @Html.TextBox("engineSize", "", new {@id = "engineSize", @name="engineSize"})
+                
             </div>
             <div class="form-row">
-                <input type="submit" value="Search" onclick="filterProducts();">
+                <input type="button" value="Search" onclick="clearProducts(); setSearchTerm();">
             </div>
         </div>
     </form>
@@ -46,4 +48,90 @@
 
 
 
+@section Scripts {
+    <script>   
 
+        let url = "https://localhost:7096/api/Products?size=100";
+        alert("this is a test");
+        fetch(url)
+            .then(response => response.json())
+            .then(data => showProducts(data))
+            .catch(ex => {
+                alert("error ");
+                console.error(ex);
+            });
+        
+
+    
+
+
+        function showProducts(products) {
+            let productsList = document.getElementById("products-container");
+            var count = 0;
+            let table = document.createElement("table");
+            table.id = "products-table";
+            products.forEach(product => {
+                let image = document.createElement("img");
+                let text = document.createElement("p");
+                let details = product.brand + " " + product.model + " " + product.year + " $" + product.salePrice;
+                image.src = product.img;
+                text.appendChild(document.createTextNode(details));
+                if (count % 4 == 0) {
+                    let row = document.createElement("tr");
+                    let cell = document.createElement("td");
+                    cell.appendChild(image);
+                    cell.appendChild(text);
+                    row.appendChild(cell);
+                    table.appendChild(row);
+                }
+                else {
+                    let cell = document.createElement("td");
+                    cell.appendChild(image);
+                    cell.appendChild(text);
+                    table.lastElementChild.appendChild(cell);
+                }
+                count++;
+            });
+            productsList.appendChild(table);
+        }
+
+        function clearProducts(){
+            let productsList = document.getElementById("products-container");
+            if (document.body.contains(document.getElementById("products-table"))){
+                productsList.removeChild(document.getElementById("products-table"));
+            }
+        }
+
+        function setSearchTerm() {
+            let brandBox = document.getElementById("brand");
+            let modelBox = document.getElementById("model");
+            let yearBox = document.getElementById("year");
+            let engineSizeBox = document.getElementById("engineSize");
+
+            let searchTerm = "?";
+            
+            if (brandBox.value.length < 1){ // great job bud, you can now create the search term.
+                alert("empty box!");
+            }
+            else {
+                alert("not null");
+            }
+        }
+
+        function filterProducts() {
+            
+           
+            let productsList = document.getElementById("products-container");
+            fetch(url)
+                .then(response => response.json())
+                .then(data => showProducts(data, productsList))
+                .catch(ex => {
+                    alert("error ");
+                    console.error(ex);
+                });
+                
+        }
+    </script>
+}
+        
+        
