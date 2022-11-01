@@ -41,6 +41,9 @@ namespace CarSalesAPI.Controllers
             if (queryParameters.onSale != null)
                 products = products.Where(p => p.onSale.Equals(queryParameters.onSale));
 
+            if (queryParameters.year != null)
+                products = products.Where(p => p.year.Equals(queryParameters.year));
+
             if (queryParameters.engineSize != null)
                 products = products.Where(p => p.engineSize.Equals(queryParameters.engineSize));
 

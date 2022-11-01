@@ -5,12 +5,12 @@
         public double? MinPrice { get; set; }
         public double? MaxPrice { get; set; }
 
-        public string brand { get; set; } = String.Empty;
-        public string model { get; set; } = String.Empty;
+        public string? brand { get; set; } = String.Empty;
+        public string? model { get; set; } = String.Empty;
         public double? salePrice { get; set; }
         public bool? onSale { get; set; }
         public int? engineSize { get; set; }
-       
+        public int? year { get; set; }
 
         public string searchTerm { get; set; } = String.Empty;
 

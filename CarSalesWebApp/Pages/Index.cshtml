@@ -6,7 +6,7 @@
 
 
 
-<body>
+<body onload="loadPage();">
 
 <div class="container">
     <h3>Find your perfect whip.</h3>
@@ -29,7 +29,7 @@
                 <input type="text" id="engineSize" name="engineSize"><br />
             </div>
             <div class="form-row">
-                <input type="submit" value="Search" onclick="">
+                <input type="submit" value="Search" onclick="filterProducts();">
             </div>
         </div>
     </form>
@@ -39,67 +39,11 @@
     </div>
 
 <div class="container-fluid" id="products-container"></div>
-    
+   
 
 </div>
 </body>
-@section Scripts{
-                    <script>
-                        let url = "https://localhost:7096/api/Products?size=100";
-                        let productsList = document.getElementById("products-container");
-                        fetch(url)
-                            .then(response => response.json())
-                            .then(data => showProducts(data))
-                            .catch(ex => {
-                                alert("error ");
-                                console.error(ex);
-                            });
-                            
-                            function showProducts(products) {
-                                var count = 0;
-                                let table = document.createElement("table");
-                                let row = document.createElement("tr");
-                                products.forEach(product => {
-                                    let image = document.createElement("img");
-                                    let text = document.createElement("p");
-                                    let details = product.brand + " " + product.model + " " + product.year + " $" + product.salePrice;
-                                    image.src = product.img;
-                                    text.appendChild(document.createTextNode(details));
-                                    if (count % 4 == 0){
-                                        let row = document.createElement("tr");
-                                        let cell = document.createElement("td");
-                                        cell.appendChild(image);
-                                        cell.appendChild(text);
-                                        row.appendChild(cell);
-                                        table.appendChild(row);
-                                    }
-                                    else {
-                                        let cell = document.createElement("td");
-                                        cell.appendChild(image);
-                                        cell.appendChild(text);
-                                        table.lastElementChild.appendChild(cell);
-                                    }
-                                    count++;
-                                }); 
-                                productsList.appendChild(table);
-                                
-                            }
 
-                            function filterProducts(){
-                                let newUrl = window.location.href
-                                let url = "https://localhost:7096/api/Products?size=100";
-                                let productsList = document.getElementById("products-container");
-                                fetch(url)
-                                    .then(response => response.json())
-                                    .then(data => showProducts(data))
-                                    .catch(ex => {
-                                    alert("error ");
-                                    console.error(ex);
-                            });
 
-                            
-                            }
-                            
-                    </script>
-                } 
+
 
