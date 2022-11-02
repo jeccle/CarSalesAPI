@@ -15,6 +15,7 @@ namespace CarSalesAPI.Controllers
             _carShopContext = carShopContext;
             // Data seed for database creation must be ensured.
             _carShopContext.Database.EnsureCreated();
+            
         }
 
         [HttpGet]
@@ -37,6 +38,10 @@ namespace CarSalesAPI.Controllers
             
             if (queryParameters.brand != null)
                 products = products.Where(p => p.brand.ToLower().Contains(queryParameters.brand.ToLower()));
+
+
+            if (queryParameters.model != null)
+                products = products.Where(p => p.model.ToLower().Contains(queryParameters.model.ToLower()));
 
             if (queryParameters.onSale != null)
                 products = products.Where(p => p.onSale.Equals(queryParameters.onSale));
