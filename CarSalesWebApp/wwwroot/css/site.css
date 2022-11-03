@@ -17,19 +17,22 @@ body {
   margin-bottom: 60px;
 }
 table {
-    background-color: #2E394C;
+    background-color: #3c3659;
     border-radius: 20px;
     padding: 20px;
-
 }
 td {
     height: 200px;
     padding: 0.7vw;
-    width: 15%;
+    width: 25vw;
+    max-height: 300px;
+    max-width: 20%;
+    height: 16vw;
 }
 tr {
     border-radius: 50px;
     margin: 5px;
+    
 }
 h3 {
     color: white;
@@ -40,14 +43,17 @@ td p {
     text-align: center;
     margin-top: -7px;
     padding-top: 17px;
-    background: blue;
+    background: #574e82;
     height: 60px;
-    border-radius: 0px 0px 14px 14px
+    border-radius: 0px 0px 14px 14px;
+    
+
 }
 td img {
-    
     width: 100%;
+    overflow:clip;
     border-radius: 8px;
+    height: 100%;
 }
 navbar-nav nav-item:hover {
     border-bottom: 3px solid red;
@@ -75,9 +81,51 @@ form-container {
     display:grid;
 }
 form-row {
-    display:table-row;
+    display:table-row-group;
+    justify-items: center;
+    justify-content: center;
+    padding: 50px;
+    margin-top: 200px;
+}
+select {
+    width: 205px;
+    text-align: left;
 }
 label, input {
-    display: table-cell;
+    display: inline-flex;
     margin-bottom: 10px;
+    padding: 0px 10px 0px 10px;
+}
+label {
+    color: white;
+}
+
+#search-container {
+    padding-top: 20px;
+    justify-items: center;
+    display: grid;
+
+}
+background {
+    background-image: url("https://live.staticflickr.com/8430/7836576216_d10d29808c_b.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+#search-form {
+    margin-bottom: 40px;
+    margin-top: 0px;
+    background: #2e2a42;
+    border-radius: 20px;
+    padding: 20px;
+    width: 420px;
+    display: inline-block;
+    text-align: left;
+    
+}
+#search-button {
+    width: 380px;
+    text-align: center;
+    color: white;
+    background: #3c3659;
 }

@@ -7,42 +7,49 @@
 
 
 <body>
-
-<div class="container">
-    <h3>Find your perfect whip.</h3>
+<div class="background">
+<div id="search-container" class="container background">
+    
     <form id="search-form" method="GET">
-        <div class="form-container">
-            <div class="form-row" id="brand-row">
+        <fieldset class="form-container">
+            <legend><h3>Find your perfect whip.</h3></legend>
+            <div class="form-row mt-2" id="brand-row">
                 @Html.Label("brand-drop-button", "Brand", new {@class = "h4"})
-                <!--select id="brand-drop-button" name="brand-drop-button"></!--select>
+                <select id="brand-drop-button" class="form-control" name="brand-drop-button"></select>
                <!-- @Html.TextBox("brand", "", new {@id = "brand", @name="brand"})-->
                 
             </div>
-            <div class="form-row" id="model-row">
+            <div class="form-row mt-2" id="model-row">
                 @Html.Label("model-drop-button", "Model", new {@class = "h4"})
-               <!--@Html.TextBox("model", "", new {@id = "model", @name="model"})-->
+                <select id="model-drop-button" class="form-control" name="model-drop-button"></select>
+               <!--@Html.TextBox("model", "", new {@id = "model", @name="model", @class="form-control"})-->
             </div>
-                <div class="form-row">
+            <div class="form-row mt-2">
                 @Html.Label("year", "Year", new {@class = "h4"})
-                @Html.TextBox("year", "", new {@id = "year", @name="year"})
+                @Html.TextBox("year", "", new {@id = "year", @name="year", @class="form-control number year"})
             </div>
-                <div class="form-row">
+            <div class="form-row mt-2">
                 @Html.Label("engineSize", "Engine Size", new {@class = "h4"})
-                @Html.TextBox("engineSize", "", new {@id = "engineSize", @name="engineSize"})
+                @Html.TextBox("engineSize", "", new {@id = "engineSize", @name="engineSize", @class="form-control number"})
             </div>
-            <div class="form-row">
-                <input type="button" value="Search" onclick="clearProducts(); setSearchTerm();">
+            <div class="form-row mt-2">
+                <input class='btn' type="button" id="search-button" value="Search" onclick="clearProducts(); setSearchTerm();">
             </div>
-        </div>
+        </fieldset>
     </form>
-    <div class="search-box" style="height:400px;">
-        
+
     </div>
     </div>
 
 <div class="container-fluid" id="products-container"></div>
    
 
+</div>
+
+<div class="container" id="paging-container">
+    <button class="btn" id="pg-left" onclick="">Prev</button>
+    <button class="btn" id="pg-right" onclick="">Next</button>
+    
 </div>
 </body>
 
