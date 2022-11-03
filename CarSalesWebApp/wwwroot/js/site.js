@@ -1,39 +1,32 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
+
+
+
 // Write your JavaScript code.
-function populateDropDown(products) {
+function populateAllBrandBox(products) {
     let brandRow = document.getElementById("brand-row");
-   
     let brandButton = document.createElement("select");
-    brandButton.id = "brand-drop-button";
-    brandButton.name = "brand-drop-button";
-    
+    brandButton.id = brandButton.name = "brand-drop-button";
     let brandContent = document.createElement("div");
     brandContent.className = "drop-content";
     
-
     // Fill arrays with dropdown contents.
     let brandNames = [""];
-    
     products.forEach(product => {
         if (!brandNames.includes(product.brand))
             brandNames.push(product.brand);
-
     });
-
     // populate each row with values.
     brandNames.forEach(brand => {
-        
-        let brandAnchor = document.createElement("option")
+        let brandAnchor = document.createElement("option");
         brandAnchor.textContent = brand;
         brandButton.appendChild(brandAnchor);
     });
-
-
     brandRow.appendChild(brandButton, brandContent);
     
-
+    
 }
 
 function populateAllModelBox(products) {
@@ -66,10 +59,28 @@ function populateAllModelBox(products) {
 
 
     modelRow.appendChild(modelButton, modelContent);
-    
+    addEventListeners();
 }
 
-function populateModelBox(brand, products) {
+function addEventListeners() {
+    let brandButton = document.getElementById("brand-drop-button");
+    let modelButton = document.getElementById("model-drop-button");
+
+
+    brandButton.addEventListener('change', () => {
+        clearProducts();
+        setSearchTerm();
+        //filterProducts("brand=" + brandButton.value + "&model=" + modelButton.value);
+    });
+
+    modelButton.addEventListener('change', () => {
+        clearProducts();
+        setSearchTerm();
+        //filterProducts("brand=" + brandButton.value + "&model=" + modelButton.value);
+    });
+
+}
+function specificBrandModelBox(brand, products) {
     let modelBox = document.getElementById("model-row");
     modelBox.removeChild(document.getElementById("model-drop-button"));
     let modelRow = document.getElementById("model-row");
@@ -82,6 +93,7 @@ function populateModelBox(brand, products) {
 
     let modelNames = [""];
 
+    // Push all products that are associated with specified brand
     products.forEach(product => {
         if (!modelNames.includes(product.model) && product.brand == brand)
             modelNames.push(product.model);
@@ -105,17 +117,19 @@ function dropDownExists() {
 
 function showProducts(products) {
     if (!dropDownExists()) {
-        populateDropDown(products);
+        // Checks if the dropdown menus have already been loaded in full.
+        populateAllBrandBox(products);
         populateAllModelBox(products);
-    }
+        
+    }   
     else {
         brandDropDown = document.getElementById("brand-drop-button");
-        if (brandDropDown.value > 0)
-            populateModelBox(brandDropDown.value, products);
+        if (brandDropDown.value.length > 0)                         // This will set the contents of the Models dropdown 
+            specificBrandModelBox(brandDropDown.value, products);   // to display those related to the specified brand.
     }
-
     let productsList = document.getElementById("products-container");
-    var count = 0;
+    var count = 0;  // Count pointer tracks how many products in the row.
+
     let table = document.createElement("table");
     table.id = "products-table";
     products.forEach(product => {
@@ -144,8 +158,6 @@ function showProducts(products) {
 }
 
 function clearProducts() {
-    let brandBox = document.getElementById("brand-row");
-    
     let productsList = document.getElementById("products-container");
     if (document.body.contains(document.getElementById("products-table"))) {
         productsList.removeChild(document.getElementById("products-table"));
@@ -159,12 +171,13 @@ function setSearchTerm() {
     let yearBox = document.getElementById("year");
     let engineSizeBox = document.getElementById("engineSize");
 
-    let searchTerm = "?";
+    let searchTerm = "";
     let multiQuery = false;
 
-    if (brandBox.value.length > 0 || modelBox.value.length > 0 || yearBox.value.length > 0 || engineSizeBox.value.length > 0
-        && brandBox.value.length > 0 || modelBox.value.length > 0 || yearBox.value.length > 0 || engineSizeBox.value.length > 0)
-            multiQuery = true;
+    if (brandBox.value.length > 0 && modelBox.value.length > 0 || yearBox.value.length > 0 && engineSizeBox.value.length > 0
+        || brandBox.value.length > 0 && engineSizeBox.value.length > 0 || yearBox.value.length > 0 && modelBox.value.length > 0) {
+        multiQuery = true;
+}
 
     if (brandBox.value.length > 0) { 
         searchTerm += "brand=" + brandBox.value;
@@ -189,12 +202,13 @@ function setSearchTerm() {
     }
 
     filterProducts(searchTerm);
+    //getProducts(searchTerm);
 }
 
 function filterProducts(searchTerm) {
 
     let productsList = document.getElementById("products-container");
-    url = "https://localhost:7096/api/Products" + searchTerm;
+    url = "https://localhost:7096/api/Products?" + searchTerm;
     fetch(url)
         .then(response => response.json())
         .then(data => showProducts(data, productsList))
@@ -203,4 +217,17 @@ function filterProducts(searchTerm) {
             console.error(ex);
         });
 
+}
+
+function getProducts(searchTerm) {
+
+    let productsList = document.getElementById("products-container");
+    url = "https://localhost:7096/api/Products";
+    fetch(url)
+        .then(response => response.json())
+        .then(data => showProducts(data, productsList))
+        .catch(ex => {
+            alert("error ");
+            console.error(ex);
+        });
 }
