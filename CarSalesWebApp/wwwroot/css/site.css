@@ -20,6 +20,10 @@ table {
     background-color: #3c3659;
     border-radius: 20px;
     padding: 20px;
+    z-index: 1;
+    width: 99%;
+    position:sticky;
+    display:flow;
 }
 td {
     height: 200px;
@@ -28,6 +32,7 @@ td {
     max-height: 300px;
     max-width: 20%;
     height: 16vw;
+    
 }
 tr {
     border-radius: 50px;
@@ -81,11 +86,12 @@ form-container {
     display:grid;
 }
 form-row {
-    display:table-row-group;
+    display: table-row-group;
     justify-items: center;
     justify-content: center;
     padding: 50px;
     margin-top: 200px;
+
 }
 select {
     width: 205px;
@@ -99,18 +105,50 @@ label, input {
 label {
     color: white;
 }
-
+#products-bg {
+    background: #3C424B;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: block;
+    width: 99.1vw;
+    z-index: 1;
+    position: absolute;
+    padding-top: 25px;
+    margin-left: -12px;
+}
 #search-container {
     padding-top: 20px;
     justify-items: center;
     display: grid;
-
+    
 }
-background {
-    background-image: url("https://live.staticflickr.com/8430/7836576216_d10d29808c_b.jpg");
-    background-attachment: fixed;
-    background-position: center;
+
+#bg-container {
+    border-bottom: solid red 40px;
+}
+
+#index-bg-image {
+    position:fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 99vw;
+    height: 60vh;
+    background: url('https://live.staticflickr.com/8430/7836576216_d10d29808c_b.jpg');
     background-size: cover;
+    z-index: 0;
+    background-position-y: -120px;
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(2px);
+    filter: blur(2px);
+    transform: scale(1.5);
+    background-repeat:space;
+    display: inline-block;
+}
+
+#image-background {
+    
+    position:absolute;
 }
 #search-form {
     margin-bottom: 40px;
@@ -121,7 +159,7 @@ background {
     width: 420px;
     display: inline-block;
     text-align: left;
-    
+    z-index: 1;
 }
 #search-button {
     width: 380px;

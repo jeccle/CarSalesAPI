@@ -135,7 +135,7 @@ function dropDownExists() {
 function showProducts(products) {
     let brandDropDown = document.getElementById("brand-drop-button");
     let modelDropDown = document.getElementById("model-drop-button");
-    if (modelDropDown.value.length == 0)
+    if (modelDropDown.value.length == 0) // If the modelDropDown is empty
         setGlobalProducts(products);
     if (brandDropDown.options.length == 0) {
         // Checks if the dropdown menus have already been loaded in full.
@@ -144,7 +144,7 @@ function showProducts(products) {
         addEventListeners();
     }   
     else if (brandDropDown.value.length > 0) {
-                                // This will set the contents of the Models dropdown 
+        // This will set the contents of the Models dropdown 
         specificBrandModelBox(brandDropDown.value, products);   // to display those related to the specified brand.
     }
     let productsList = document.getElementById("products-container");
@@ -161,6 +161,7 @@ function showProducts(products) {
         if (count % 4 == 0) {
             let row = document.createElement("tr");
             let cell = document.createElement("td");
+            //cell.onclick(); // fill this with detail view.
             cell.appendChild(image);
             cell.appendChild(text);
             row.appendChild(cell);
@@ -228,7 +229,7 @@ function setSearchTerm() {
 function filterProducts(searchTerm) {
 
     let productsList = document.getElementById("products-container");
-    url = "https://localhost:7096/api/Products?" + searchTerm;
+    url = "https://localhost:7096/api/Products?" + searchTerm + "&size=100";
     fetch(url)
         .then(response => response.json())
         .then(data => showProducts(data, productsList))
