@@ -52,6 +52,9 @@ namespace CarSalesAPI.Controllers
             if (queryParameters.engineSize != null)
                 products = products.Where(p => p.engineSize.Equals(queryParameters.engineSize));
 
+            if (queryParameters.categoryID != null)
+                products = products.Where(p => p.categoryID.Equals(queryParameters.categoryID));
+
             if (!string.IsNullOrEmpty(queryParameters.sortBy))
             {
                 if (typeof(Product).GetProperty(queryParameters.sortBy) != null)

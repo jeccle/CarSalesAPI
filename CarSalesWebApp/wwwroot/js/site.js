@@ -2,7 +2,7 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 
-var allProducts;
+var allProducts = [];
 
 // Write your JavaScript code.
 function populateAllBrandBox(products) {
@@ -65,14 +65,23 @@ function populateAllModelBox(products) {
     
 }
 
-function addEventListeners() {
+function addEventListeners(products) {
     let brandButton = document.getElementById("brand-drop-button");
     let modelButton = document.getElementById("model-drop-button");
 
 
     brandButton.addEventListener('change', (e) => {
-        clearProducts();
-        setSearchTerm();
+        if (brandButton.value > 0) {
+            clearProducts();
+            setSearchTerm();
+        }
+        else {
+            if (modelButton.value.length == 0) // If the modelDropDown is empty
+                setGlobalProducts(products);
+            clearProducts();
+            setSearchTerm();
+            populateAllModelBox(allProducts);
+        }
         //filterProducts("brand=" + brandButton.value + "&model=" + modelButton.value);
     });
 
@@ -135,13 +144,13 @@ function dropDownExists() {
 function showProducts(products) {
     let brandDropDown = document.getElementById("brand-drop-button");
     let modelDropDown = document.getElementById("model-drop-button");
-    if (modelDropDown.value.length == 0) // If the modelDropDown is empty
-        setGlobalProducts(products);
+    
     if (brandDropDown.options.length == 0) {
         // Checks if the dropdown menus have already been loaded in full.
+        addEventListeners(products);
         populateAllBrandBox(products);
         populateAllModelBox(products);
-        addEventListeners();
+        
     }   
     else if (brandDropDown.value.length > 0) {
         // This will set the contents of the Models dropdown 
@@ -186,17 +195,19 @@ function clearProducts() {
     }
 }
 
-function setSearchTerm() {
+function setSearchTerm(input) {
     let brandBox = document.getElementById("brand-drop-button");
     let modelBox = document.getElementById("model-drop-button");
     let yearBox = document.getElementById("year");
     let engineSizeBox = document.getElementById("engineSize");
 
     let searchTerm = "";
+    
     let multiQuery = false;
 
     if (brandBox.value.length > 0 && modelBox.value.length > 0 || yearBox.value.length > 0 && engineSizeBox.value.length > 0
-        || brandBox.value.length > 0 && engineSizeBox.value.length > 0 || yearBox.value.length > 0 && modelBox.value.length > 0) {
+        || brandBox.value.length > 0 && engineSizeBox.value.length > 0 || yearBox.value.length > 0 && modelBox.value.length > 0
+        || yearBox.value.length > 0 && brandBox.value.length > 0) {
         multiQuery = true;
 }
 
@@ -221,7 +232,11 @@ function setSearchTerm() {
     if (engineSizeBox.value.length > 0) {
         searchTerm += "engineSize=" + engineSizeBox.value;
     }
-
+    if (input != null)
+        if (searchTerm != null)
+            searchTerm += "&" + input;
+        else
+            searchTerm += input;
     filterProducts(searchTerm);
     //getProducts(searchTerm);
 }

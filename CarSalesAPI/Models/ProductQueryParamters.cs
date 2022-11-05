@@ -11,6 +11,7 @@
         public bool? onSale { get; set; }
         public int? engineSize { get; set; }
         public int? year { get; set; }
+        public int? categoryID { get; set; }
 
         public string searchTerm { get; set; } = String.Empty;
 
