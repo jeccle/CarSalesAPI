@@ -93,15 +93,9 @@ function addEventListeners(products) {
 
 }
 function specificBrandModelBox(products) {
-    //let modelBox = document.getElementById("model-row");
-    //modelBox.removeChild(document.getElementById("model-drop-button"));
     let modelRow = document.getElementById("model-row");
-    
-    //let modelButton = document.createElement("select");
     let modelButton = document.getElementById("model-drop-button");
     modelButton.options.length = 0;
-    //modelButton.id = "model-drop-button";
-    //modelButton.name = "model-drop-button";
     
     let modelContent = document.createElement("div");
     modelContent.className = "drop-content";
@@ -143,7 +137,7 @@ function dropDownExists() {
 
 function showProducts(products) {
     let brandDropDown = document.getElementById("brand-drop-button");
-    let modelDropDown = document.getElementById("model-drop-button");
+    
     
     if (brandDropDown.options.length == 0) {
         // Checks if the dropdown menus have already been loaded in full.
@@ -185,6 +179,7 @@ function showProducts(products) {
         count++;
     });
     productsList.appendChild(table);
+
 }
 
 function clearProducts() {
@@ -244,7 +239,7 @@ function setSearchTerm(input) {
 function filterProducts(searchTerm) {
 
     let productsList = document.getElementById("products-container");
-    url = "https://localhost:7096/api/Products?" + searchTerm + "&size=100";
+    url = "https://localhost:7096/api/Products?" + searchTerm;
     fetch(url)
         .then(response => response.json())
         .then(data => showProducts(data, productsList))
@@ -255,3 +250,27 @@ function filterProducts(searchTerm) {
 
 }
 
+function buttonPageDown() {
+    if (currentPage > 1) {
+        clearProducts();
+        currentPage--;
+        currentPage = getPage();
+        setSearchTerm("page=" + (currentPage));
+    }
+    
+}
+
+function buttonPageUp() {
+    clearProducts();
+    currentPage++;
+    currentPage = getPage();
+    setSearchTerm("page=" + currentPage);
+}
+
+function getPage() {
+    if (currentPage == null || currentPage == 0)
+        currentPage = 1;
+    else if (currentPage == 4)
+        currentPage = 3;
+    return currentPage;
+}

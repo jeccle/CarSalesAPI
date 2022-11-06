@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="~/CarSalesWebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
+    
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-sm-top navbar-toggleable-sm box-shadow">
             <div class="container">
@@ -31,6 +33,7 @@
             <partial name ="_LoginPartial" />
         </nav>
     </header>
+   
     <div id="layout-backdrop" style="background: #3C424B;">
     <div class="container-fluid">
         <main role="main" class="pb-3">
@@ -39,12 +42,13 @@
         </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+     <div class="wrapper">
+        <footer class="footer text-muted">
+            <div class="container">
             &copy; 2022 - BootlegCarSales - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            </div>
+        </footer>
         </div>
-    </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

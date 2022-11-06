@@ -41,7 +41,8 @@
     </form>
     
     
-    </div>
+</div>
+
 <div id="products-bg">
     <div id="categories-container" class="container-fluid row justify-content-center">
         <a onclick="clearProducts(); setSearchTerm('categoryID=1');" id="cat-sedan" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/55/55283.png" /><br /><h5>Sedan</h5></a>
@@ -51,25 +52,29 @@
         <a onclick="clearProducts(); setSearchTerm('categoryID=5');" id="cat-wagon" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/5952/5952605.png"/><h5>Wagon</h5></a>
         <a onclick="clearProducts(); setSearchTerm('categoryID=6');" id="cat-hatch" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/55/55308.png"/><h5>Hatch</h5></a>
         <a onclick="clearProducts(); setSearchTerm('categoryID=7');" id="cat-2-door" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/68/68321.png"/><h5>Coupe</h5></a>
-    </div>
+</div>
+
+
+
 <div class="container-fluid" id="products-container"></div>
-   </div>
-
-</div>
-
 <div class="container" id="paging-container">
-    <button class="btn" id="pg-left" onclick="">Prev</button>
-    <button class="btn" id="pg-right" onclick="">Next</button>
     
+    <button class="btn" type="button" id="pg-left" onclick="buttonPageDown();">Prev</button>
+    <button class="btn" id="pg-right" onclick="buttonPageUp();">Next</button>
+    <h1>Page </h1>
 </div>
+</div>
+
+
+
 </body>
 
 
 
 @section Scripts {
     <script>   
-
-        let url = "https://localhost:7096/api/Products?size=100";
+        var currentPage = getPage();
+        let url = "https://localhost:7096/api/Products?page=" + currentPage;
         fetch(url)
             .then(response => response.json())
             .then(data => showProducts(data))
