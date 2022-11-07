@@ -1,5 +1,7 @@
+/*#region Index*/
 html {
   font-size: 14px;
+  overflow-x: hidden;
 }
 
 @media (min-width: 768px) {
@@ -10,14 +12,12 @@ html {
 
 html {
   position: relative;
-  min-height: 100%;
-  height: 100%
 }
 
 body {
   margin-bottom: 60px;
 }
-table {
+#products-container table {
     background-color: #3c3659;
     border-radius: 20px;
     padding: 10px;
@@ -26,7 +26,7 @@ table {
     position:sticky;
     display:block;
 }
-td {
+#products-container table tr td {
     height: 200px;
     padding: 0.7vw;
     width: 25vw;
@@ -34,16 +34,15 @@ td {
     max-width: 25%;
     height: 16vw;
 }
-tr {
+#products-container table tr {
     border-radius: 50px;
     margin: 5px;
-    
 }
 h3 {
     color: white;
     text-align:center;
 }
-td p {
+#products-container table tr td p {
     color: white;
     text-align: center;
     margin-top: -7px;
@@ -52,14 +51,14 @@ td p {
     height: 60px;
     border-radius: 0px 0px 14px 14px;
     border: solid 2px;
-
 }
-td img {
+#products-container table tr td img {
     width: 100%;
     overflow: hidden;
     border-radius: 8px;
     height: 100%;
     border: solid 2px white;
+    object-fit: cover;
 }
 navbar-nav nav-item:hover {
     border-bottom: 3px solid red;
@@ -110,16 +109,17 @@ label {
     background: #3C424B;
     padding-left: 20px;
     padding-right: 20px;
-    display:block;
-    width: 99.1vw;
+    display: block;
+    width: 100.8vw;
     z-index: auto;
-    position: absolute;
+    position: relative;
     padding-top: 8px;
-    margin-left: -12px;
+    margin-left: -1.5vw;
+
+    margin-right: auto;
     min-height: 50vh;
     border-top: solid grey 2px;
     height: auto;
-    
 }
 #search-container {
     padding-top: 20px;
@@ -133,21 +133,22 @@ label {
 }
 
 #index-bg-image {
-    position:fixed;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
-    width: 99vw;
+    width: 100vw;
     height: 60vh;
     background: url('https://live.staticflickr.com/8430/7836576216_d10d29808c_b.jpg');
     background-size: cover;
+
     z-index: 0;
     background-position-y: -120px;
     -webkit-filter: blur(1px);
     -moz-filter: blur(2px);
     filter: blur(2px);
     transform: scale(1.5);
-    background-repeat:space;
+    background-repeat: space;
     display: inline-block;
 }
 #search-form {
@@ -195,13 +196,14 @@ label {
     height: 5.5vw;
     overflow:hidden;
 }
-    #categories-container a h5 {
-        font-size: 0.8vw;
-    }
-    #categories-container a:hover {
-        background-color: #9999b2;
-        text-decoration: underline;
-    }
+#categories-container a h5 {
+    font-size: 0.8vw;
+}
+#categories-container a:hover {
+    background-color: #9999b2;
+    text-decoration: underline;
+    cursor:pointer;
+}
 
 #categories-container a img {
     max-width: 80%;
@@ -213,20 +215,183 @@ label {
     display: inline-block;
 }
 #paging-container {
-    display: block;
+    display: flex;
     position: center;
     margin: auto;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    align-content: center;
 }
-#paging-container button {
-    color: red;
-    padding: 15px;
-    margin-left: 40px;
-    margin-right: 40px;
-    display:table-cell;
+    #paging-container button {
+        color: black;
+        margin-left: auto;
+        margin-right: auto;
+        display: table-cell;
+        background: #9999b2;
+        padding: 5px;
+        width: 8vw;
+    }
+
+
+
+/*#endregion*/
+/*region Popup-form*/
+#details-container {
+    position: fixed;
+    background-color: #3c3659;
+    width: 40vw;
+    margin: auto;
+    height: 20vw;
+    top: 0;
+    right: 0;
+    bottom: 10vh;
+    left: 0;
+    z-index: 100;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    border: solid #2e2a42;
 }
-.footer {
-    display: flex;
+.popup-container {
+    margin:auto;
+}
+
+#popup-image {
     
+}
+    #popup-image img {
+        position: absolute;
+        width: 30vw;
+        z-index: 100;
+        height: 17vw;
+        overflow: hidden;
+        top: 2vw;
+        right: 0;
+        bottom: 0;
+        left: 5vw;
+        border: solid #2e2a42 3px;
+        object-fit: cover;
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+    }
+#car-image {
+    width: 30vw;
+
+}
+#details-box {
+    position: absolute;
+    background: #3c3659;
+    display: inline-block;
+    width: 40vw;
+    top: 19vw;
+    left: 0vw;
+    height: 8vh;
+    margin-left: -0.2vw;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: solid #2e2a42;
+    border-top: 0px;
+}
+#details-box row {
+    display: inline-block;
+}
+#details-box table {
+    width: 38vw;
+    table-layout:auto;
+    display: table;
+}
+#popup-table th {
+    margin:auto;
     
 }
+#details-box table tr {
+    display: table-row;
+    width: 25vw;
+    height: 20px;
+    height: min-content;
+}
+#details-box table tr td { 
+    margin: auto;
+    height: fit-content;
+}
+    #details-box table tr th p {
+        display: inline-table;
+        padding-left: 20px;
+        margin: 0px;
+        font-size: 1vw;
+        color: #c3c3c3;
+    }
+    #details-box table tr td p {
+        display: inline-table;
+        padding-left: 20px;
+        margin: 0px;
+        font-size: 1vw;
+        color: #c3c3c3;
+    }
+
+#close-button {
+    position: absolute;
+    right: 1.5vw;
+    top: -0vw;
+    z-index: 100;
+    font-weight: bold;
+    font-size: 4vw;
+    color: white;
+}
+#close-button:hover {
+        color: red;
+        cursor: pointer;
+}
+/*#endregion*/
+/*#region Management-form*/
+#management-form-container {
+    height: auto;
+    position: relative;
+    align-content: center;
+}
+#management-form {
+    display: block;
+    width: 30vw;
+    margin-left: 2vw;
+    max-height: 75vh;
+    min-height: 30vh;
+
+}
+#management-title {
+    height: auto;
+    text-align:center;
+}
+#management-bg-container {
+    height: 100vh;
+    z-index: -1;
+    display: block;
+    margin-bottom: 10px;
+}
+#products-management-container {
+    display: block;
+
+}
+.form-management-control {
+    display: block;
+    width: 26vw;
+    overflow: visible
+}
+.input-button-container {
+    width: 40vw;
+}
+.input-btn {
+    width: 5vw;
+    display: inline-block;
+    overflow: visible;
+}
+#products-bg-container {
+    background: #3C424B;
+    height: auto;
+    margin-left: -13px;
+    width: 100vw;
+    padding: 1.5vw;
+    max-height: 500vh;
+    overflow:hidden;
+}
+
+/*#endregion*/
+

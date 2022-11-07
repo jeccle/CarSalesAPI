@@ -3,6 +3,7 @@
 
 
 var allProducts = [];
+var currentProduct;
 
 // Write your JavaScript code.
 function populateAllBrandBox(products) {
@@ -92,6 +93,7 @@ function addEventListeners(products) {
     });
 
 }
+
 function specificBrandModelBox(products) {
     let modelRow = document.getElementById("model-row");
     let modelButton = document.getElementById("model-drop-button");
@@ -138,7 +140,6 @@ function dropDownExists() {
 function showProducts(products) {
     let brandDropDown = document.getElementById("brand-drop-button");
     
-    
     if (brandDropDown.options.length == 0) {
         // Checks if the dropdown menus have already been loaded in full.
         addEventListeners(products);
@@ -158,20 +159,23 @@ function showProducts(products) {
     products.forEach(product => {
         let image = document.createElement("img");
         let text = document.createElement("p");
+        let cell = document.createElement("td");
         let details = product.brand + " " + product.model + " " + product.year + " $" + product.salePrice;
         image.src = product.img;
+
+
         text.appendChild(document.createTextNode(details));
         if (count % 4 == 0) {
             let row = document.createElement("tr");
-            let cell = document.createElement("td");
-            //cell.onclick(); // fill this with detail view.
+
+            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + "); showPopup();"); // fill this with detail view.
             cell.appendChild(image);
             cell.appendChild(text);
             row.appendChild(cell);
             table.appendChild(row);
         }
         else {
-            let cell = document.createElement("td");
+            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + "); showPopup();");
             cell.appendChild(image);
             cell.appendChild(text);
             table.lastElementChild.appendChild(cell);
@@ -180,6 +184,40 @@ function showProducts(products) {
     });
     productsList.appendChild(table);
 
+}
+
+function showProductsManagement(products) {
+    let productsList = document.getElementById("products-container");
+    var count = 0;  // Count pointer tracks how many products in the row.
+
+    let table = document.createElement("table");
+    table.id = "products-table";
+    products.forEach(product => {
+        let image = document.createElement("img");
+        let text = document.createElement("p");
+        let cell = document.createElement("td");
+        let details = product.id + " " + product.brand + " " + product.model + " " + product.year + " $" + product.salePrice;
+        image.src = product.img;
+
+
+        text.appendChild(document.createTextNode(details));
+        if (count % 4 == 0) {
+            let row = document.createElement("tr");
+            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + "); fillBoxes();"); // fill this with detail view.
+            cell.appendChild(image);
+            cell.appendChild(text);
+            row.appendChild(cell);
+            table.appendChild(row);
+        }
+        else {
+            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + "); fillBoxes();");
+            cell.appendChild(image);
+            cell.appendChild(text);
+            table.lastElementChild.appendChild(cell);
+        }
+        count++;
+    });
+    productsList.appendChild(table);
 }
 
 function clearProducts() {
@@ -251,13 +289,10 @@ function filterProducts(searchTerm) {
 }
 
 function buttonPageDown() {
-    if (currentPage > 1) {
-        clearProducts();
-        currentPage--;
-        currentPage = getPage();
-        setSearchTerm("page=" + (currentPage));
-    }
-    
+    clearProducts();
+    currentPage--;
+    currentPage = getPage();
+    setSearchTerm("page=" + (currentPage));
 }
 
 function buttonPageUp() {
@@ -273,4 +308,172 @@ function getPage() {
     else if (currentPage == 4)
         currentPage = 3;
     return currentPage;
+}
+
+function changeText(parent, text) {
+    let element = document.getElementById(parent);
+    element.innerText = text;
+}
+
+function setImage(parent, image) {
+    let element = document.getElementById(parent);
+    element.src = image;
+}
+
+function setTextBox(parent, text) {
+    let element = document.getElementById(parent);
+    element.value = text;
+}
+
+function buttonClick(parent) {
+    let idLabel = document.getElementById('id-label-management');
+    let idBox = document.getElementById('id-management');
+    let brandLabel = document.getElementById('brand-label-management');
+    let brandBox = document.getElementById('brand-management');
+    let modelLabel = document.getElementById('model-label-management');
+    let modelBox = document.getElementById('model-management');
+    let yearLabel = document.getElementById('year-label-management');
+    let yearBox = document.getElementById('year-management');
+    let priceLabel = document.getElementById('salePrice-label-management');
+    let priceBox = document.getElementById('salePrice-management');
+    let onSaleLabel = document.getElementById('sale-label-management');
+    let onSaleBox = document.getElementById('sale-management');
+    let engineSizeLabel = document.getElementById('engineSize-label-management');
+    let engineSizeBox = document.getElementById('engineSize-management');
+
+    switch (parent) {
+        case "add-button":
+            idBox.hidden = true;
+            idLabel.hidden = true;
+            brandBox.hidden = false;
+            brandLabel.hidden = false;
+            modelBox.hidden = false;
+            modelLabel.hidden = false;
+            yearBox.hidden = false;
+            yearLabel.hidden = false;
+            priceBox.hidden = false;
+            priceLabel.hidden = false;
+            onSaleBox.hidden = false;
+            onSaleLabel.hidden = false;
+            engineSizeBox.hidden = false;
+            engineSizeLabel.hidden = false;
+            break;
+
+        case "edit-button":
+            idBox.hidden = false;
+            idLabel.hidden = false;
+            brandBox.hidden = false;
+            brandLabel.hidden = false;
+            modelBox.hidden = false;
+            modelLabel.hidden = false;
+            yearBox.hidden = false;
+            yearLabel.hidden = false;
+            priceBox.hidden = false;
+            priceLabel.hidden = false;
+            onSaleBox.hidden = false;
+            onSaleLabel.hidden = false;
+            engineSizeBox.hidden = false;
+            engineSizeLabel.hidden = false;
+            break;
+
+        case "delete-button":
+            idBox.hidden = false;
+            idLabel.hidden = false;
+            brandBox.hidden = true;
+            brandLabel.hidden = true;
+            modelBox.hidden = true;
+            modelLabel.hidden = true;
+            yearBox.hidden = true;
+            yearLabel.hidden = true;
+            priceBox.hidden = true;
+            priceLabel.hidden = true;
+            onSaleBox.hidden = true;
+            onSaleLabel.hidden = true;
+            engineSizeBox.hidden = true;
+            engineSizeLabel.hidden = true;
+            break;
+        case "restore":
+            idBox.hidden = false;
+            idLabel.hidden = false;
+            brandBox.hidden = false;
+            brandLabel.hidden = false;
+            modelBox.hidden = false;
+            modelLabel.hidden = false;
+            yearBox.hidden = false;
+            yearLabel.hidden = false;
+            priceBox.hidden = false;
+            priceLabel.hidden = false;
+            onSaleBox.hidden = false;
+            onSaleLabel.hidden = false;
+            engineSizeBox.hidden = false;
+            engineSizeLabel.hidden = false;
+            break;
+    }
+}
+
+function setCurrentProduct(curProduct) {
+    currentProduct = curProduct;
+}
+
+function getCurrentProduct() {
+    return currentProduct;
+}
+
+function showPopup() {
+    let detailsContainer = document.getElementById("details-container");
+    detailsContainer.hidden = false;
+    let id = getCurrentProduct();
+    url = "https://localhost:7096/products/Products?id=" + id;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => setPopupDetails(data, id))
+        .catch(ex => {
+            alert("error ");
+            console.error(ex);
+        });
+
+    
+}
+function closePopup() {
+    let popup = document.getElementById("details-container");
+    popup.hidden = true;
+}
+function fillBoxes() {
+    let id = getCurrentProduct();
+    url = "https://localhost:7096/products/Products?id=" + id;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => setBoxDetails(data, id))
+        .catch(ex => {
+            alert("error ");
+            console.error(ex);
+        });
+}
+
+function setBoxDetails(product, id) {
+    if (id == product.id) {
+            setTextBox("id-management", product.id);
+            setTextBox("brand-management", product.brand);
+            setTextBox("model-management", product.model);
+            setTextBox("year-management", product.year);
+            setTextBox("salePrice-management", product.salePrice);
+            setTextBox("sale-management", product.sale);
+            setTextBox("engineSize-management", product.engineSize);
+        }
+
+}
+
+function setPopupDetails(product, id) {
+    
+        if (id == product.id) {
+            changeText("id-details", product.id);
+            changeText("brand-details", product.brand);
+            changeText("model-details", product.model);
+            changeText("year-details", product.year);
+            changeText("salePrice-details", product.salePrice);
+            changeText("sale-details", product.onSale);
+            changeText("engineSize-details", product.engineSize);
+            setImage("car-image", product.img);
+        }
+    
 }

@@ -58,13 +58,71 @@
 
 <div class="container-fluid" id="products-container"></div>
 <div class="container" id="paging-container">
-    
-    <button class="btn" type="button" id="pg-left" onclick="buttonPageDown();">Prev</button>
-    <button class="btn" id="pg-right" onclick="buttonPageUp();">Next</button>
-    <h1>Page </h1>
+            <button class="btn" type="button" id="pg-left" value="" onclick="buttonPageDown();">Prev</button>
+            <button class="btn" type="button" id="pg-right" text="" onclick="buttonPageUp();">Next</button>
 </div>
 </div>
 
+    <div class="popup-details" id="details-container">
+    <div class="col" id="details-info-container">
+    <div class="container" id="details-box">
+        <table id="popup-table">
+        <tr>
+            <th>
+            <p>ID</p>
+            </th>
+            <td>
+            <p id="id-details">ID</p>
+            </td>
+            <th>
+            <p>Brand</p>
+            </th>
+            <td>
+            <p id="brand-details">Brand</p>
+            </td>
+            <th>
+            <p>Model</p>
+            </th>
+            <td>
+            <p id="model-details">Model</p>
+            </td>
+        </tr>
+        <tr>
+            <th>
+            <p>Year</p>
+            </th>
+            <td>
+            <p id="year-details">Year</p>
+            </td>
+            <th>
+            <p>Price</p>
+            </th>
+            <td>
+            <p id="salePrice-details">SalePrice</p>
+            </td>
+
+            <th>
+            <p>Is on Sale</p>
+            </th>
+            <td>
+            <p id="sale-details">OnSale</p>
+            </td>
+
+            <th>
+            <p>Engine Size</p>
+            </th>
+            <td>
+            <p id="engineSize-details">EngineSize</p>
+            </td>
+        </tr>
+        </table>
+    </div>
+    <span id="close-button" onclick="closePopup()">&times;</span>
+    <div id="popup-image">
+        <img src="" alt="" id="car-image" />
+    </div>
+        </div>
+         </div>
 
 
 </body>
@@ -73,6 +131,7 @@
 
 @section Scripts {
     <script>   
+        closePopup();
         var currentPage = getPage();
         let url = "https://localhost:7096/api/Products?page=" + currentPage;
         fetch(url)

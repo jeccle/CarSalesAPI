@@ -1,0 +1,72 @@
+﻿@page
+@model CarSalesWebApp.Pages.CarManagementModel
+@{
+    ViewData["Title"] = "CarManagement";
+}
+
+<div id="management-bg-image"></div>
+<div id="management-bg-container">
+    <div id="management-form-container" class="row">
+    <h3 id="manage-title">Manage Bootleg Car Sales Stock</h3>
+    <!--CREATE TABS THAT CHANGE INPUT CONTROLS BASED ON ADD/EDIT/DELETE OPERATION-->
+<form id="management-form"  method="POST">
+    <fieldset class="form-container col">
+        <legend><h3>Input Fields</h3></legend>
+        <div class="form-row mt-2" id="brand-row">
+            @Html.Label("id-management", "ID", new {@id = "id-label-management", @class = "h4"})
+                    @Html.TextBox("id-management", "", new {@id = "id-management", @name="id-management", @class="form-management-control"})
+        </div>
+        <div class="form-row mt-2" id="brand-row">
+                    @Html.Label("brand-management", "Brand", new {@id = "brand-label-management", @class = "h4"})
+                    @Html.TextBox("brand-management", "", new {@id = "brand-management", @name="brand-management", @class="form-management-control"})
+        </div>
+        <div class="form-row mt-2" id="model-row">
+            @Html.Label("model-management", "Model", new {@id = "model-label-management", @class = "h4"})
+                    @Html.TextBox("model-management", "", new {@id = "model-management", @name="model-management", @class="form-management-control"})
+        </div> 
+        <div class="form-row mt-2">
+                    @Html.Label("year-management", "Year", new {@id = "year-label-management", @class = "h4"})
+                    @Html.TextBox("year-management", "", new {@id = "year-management", @name="year-management", @class="form-management-control"})
+        </div>
+        <div class="form-row mt-2" id="model-row">
+                    @Html.Label("salePrice-management", "Price", new {@id = "salePrice-label-management", @class = "h4"})
+                    @Html.TextBox("salePrice-management", "", new {@id = "salePrice-management", @name="salePrice-management", @class="form-management-control"})
+        </div> 
+        <div class="form-row mt-2">
+                    @Html.Label("sale-management", "On Sale", new {@id = "sale-label-management", @class = "h4"})
+                    @Html.TextBox("sale-management", "", new {@id = "sale-management", @name="sale-management", @class="form-management-control"})
+        </div>
+        <div class="form-row mt-2">
+                    @Html.Label("engineSize-management", "Engine Size", new {@id = "engineSize-label-management", @class = "h4"})
+                    @Html.TextBox("engineSize-management", "", new {@id = "engineSize-management", @name="engineSize-management", @class="form-management-control number"})
+        </div>
+        <div class="form-row mt-2" id="input-button-container">
+            <!--MAKE COMBO BOX INSTEAD OF BUTTONS KEEP SUBMIT-->
+            <button class='btn input-btn' type="button" id="add-button" onclick="buttonClick('add-button');" value="Add">Add</button>
+            <button class='btn input-btn' type="button" id="edit-button" onclick="buttonClick('edit-button');" value="Edit">Edit</button>
+            <button class='btn input-btn' type="button" id="delete-button" onclick="buttonClick('delete-button');" value="Delete">Delete</button>
+            <button class='btn input-btn' type="button" id="submit-button" onclick="buttonClick('submit-button');" value="Submit">Submit</button>
+            <button class='btn input-btn' type="button" id="restore-button" onclick="buttonClick('restore');" value="Restore">Restore</button>
+        </div>
+    </fieldset>
+</form>
+    <h1 class="col">Show Details here</h1>
+    </div>
+    <div id="products-bg-container">
+    <div id="products-container"></div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        let url = "https://localhost:7096/api/Products?size=100";
+        fetch(url)
+            .then(response => response.json())
+            .then(data => showProductsManagement(data))
+            .catch(ex => {
+                alert("error ");
+                console.error(ex);
+            });
+
+    </script>
+}

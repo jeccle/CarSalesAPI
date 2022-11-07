@@ -39,31 +39,19 @@ button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
-layout-backdrop {
+#layout-backdrop {
     z-index: 0;
+    
 }
 .footer {
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
-
+  height: 40px;
 }
 
 * {
     box-sizing: border-box
-}
-
-.wrapper {
-    min-height: 100%;
-    position: absolute;
-    height: 100%;
-    margin: 0 auto;
-    max-height: 1500px;
-    height: auto;
-}
-#push-footer {
-    position: relative;
-    height: 100%;
 }
