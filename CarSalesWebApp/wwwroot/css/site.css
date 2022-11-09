@@ -23,7 +23,7 @@ body {
     padding: 10px;
     z-index: 1;
     width: 99%;
-    position:sticky;
+    position:relative;
     display:block;
 }
 #products-container table tr td {
@@ -239,7 +239,7 @@ label {
 #details-container {
     position: fixed;
     background-color: #3c3659;
-    width: 40vw;
+    width: 35vw;
     margin: auto;
     height: 20vw;
     top: 0;
@@ -247,9 +247,11 @@ label {
     bottom: 10vh;
     left: 0;
     z-index: 100;
-    border-top-left-radius: 60px;
-    border-top-right-radius: 60px;
-    border: solid #2e2a42;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border: solid #9999b2 5px;
 }
 .popup-container {
     margin:auto;
@@ -264,14 +266,16 @@ label {
         z-index: 100;
         height: 17vw;
         overflow: hidden;
-        top: 2vw;
+        top: 1.6vw;
         right: 0;
         bottom: 0;
-        left: 5vw;
-        border: solid #2e2a42 3px;
+        left: 2.35vw;
+        border: solid #9999b2 3px;
         object-fit: cover;
-        border-top-left-radius: 60px;
-        border-top-right-radius: 60px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
     }
 #car-image {
     width: 30vw;
@@ -279,29 +283,30 @@ label {
 }
 #details-box {
     position: absolute;
-    background: #3c3659;
+    background: #2e2a42;
     display: inline-block;
-    width: 40vw;
-    top: 19vw;
-    left: 0vw;
-    height: 8vh;
-    margin-left: -0.2vw;
+    width: 32.5vw;
+    top: 20.1vw;
+    left: 0.8vw;
+    height: fit-content;
+    max-height: 12vh;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    border: solid #2e2a42;
-    border-top: 0px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border: solid #9999b2;
 }
 #details-box row {
     display: inline-block;
 }
 #details-box table {
-    width: 38vw;
+    width: 32vw;
     table-layout:auto;
     display: table;
 }
 #popup-table th {
-    margin:auto;
-    
+    margin: auto;
+    width: 0.5vw;
 }
 #details-box table tr {
     display: table-row;
@@ -312,6 +317,7 @@ label {
 #details-box table tr td { 
     margin: auto;
     height: fit-content;
+    width: 0.5vw;
 }
     #details-box table tr th p {
         display: inline-table;
@@ -330,11 +336,11 @@ label {
 
 #close-button {
     position: absolute;
-    right: 1.5vw;
-    top: -0vw;
+    right: 0.4vw;
+    top: -1.4vw;
     z-index: 100;
     font-weight: bold;
-    font-size: 4vw;
+    font-size: 3vw;
     color: white;
 }
 #close-button:hover {
@@ -350,7 +356,7 @@ label {
 }
 #management-form {
     display: block;
-    width: 30vw;
+    width: 40vw;
     margin-left: 2vw;
     max-height: 75vh;
     min-height: 30vh;
@@ -359,6 +365,16 @@ label {
 #management-title {
     height: auto;
     text-align:center;
+}
+#id-row, #brand-row, #model-row, #year-row, #salePrice-row, #sale-row, #engineSize-row, #img-row, #category-row {
+    margin-left: 0vw;
+    display: inline-grid;
+}
+#img-row form-management-control{
+    width: 25vw;
+}
+.management-col {
+    position: relative;
 }
 #management-bg-container {
     height: 100vh;
@@ -372,26 +388,44 @@ label {
 }
 .form-management-control {
     display: block;
-    width: 26vw;
+    width: 15vw;
     overflow: visible
 }
 .input-button-container {
     width: 40vw;
+    display: inline-block;
 }
 .input-btn {
-    width: 5vw;
+    width: 8vw;
     display: inline-block;
     overflow: visible;
+    background-color: #3c3659;
+    color: white;
+    margin: 0.2vw;
+    font-size: 1vw;
+}
+.input-btn:hover {
+    background-color: #9999b2;
+}
+#input-button-container {
+    margin-left: 0vw;
+    padding-top: 20px;
 }
 #products-bg-container {
     background: #3C424B;
-    height: auto;
+    height: fit-content;
     margin-left: -13px;
     width: 100vw;
     padding: 1.5vw;
-    max-height: 500vh;
+    max-height: 1000vh;
     overflow:hidden;
 }
-
+#management-details-container {
+    display: block;
+}
+#management-details-container table {
+    display:inline-block;
+    position:relative ;
+}
 /*#endregion*/
 

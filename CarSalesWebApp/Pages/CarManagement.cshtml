@@ -9,10 +9,13 @@
     <div id="management-form-container" class="row">
     <h3 id="manage-title">Manage Bootleg Car Sales Stock</h3>
     <!--CREATE TABS THAT CHANGE INPUT CONTROLS BASED ON ADD/EDIT/DELETE OPERATION-->
-<form id="management-form"  method="POST">
-    <fieldset class="form-container col">
+<form class="management-form-form" id="management-form"  method="POST">
+    <fieldset id="management-fieldset" class="form-container col">
         <legend><h3>Input Fields</h3></legend>
-        <div class="form-row mt-2" id="brand-row">
+        <h1 id="error-line" hidden="true">Fields Incorrect</h1>
+        <row>
+        <col class="management-col">
+        <div class="form-row mt-2" id="id-row">
             @Html.Label("id-management", "ID", new {@id = "id-label-management", @class = "h4"})
                     @Html.TextBox("id-management", "", new {@id = "id-management", @name="id-management", @class="form-management-control"})
         </div>
@@ -24,22 +27,33 @@
             @Html.Label("model-management", "Model", new {@id = "model-label-management", @class = "h4"})
                     @Html.TextBox("model-management", "", new {@id = "model-management", @name="model-management", @class="form-management-control"})
         </div> 
-        <div class="form-row mt-2">
+        <div class="form-row mt-2" id="year-row">
                     @Html.Label("year-management", "Year", new {@id = "year-label-management", @class = "h4"})
                     @Html.TextBox("year-management", "", new {@id = "year-management", @name="year-management", @class="form-management-control"})
         </div>
-        <div class="form-row mt-2" id="model-row">
+        <div class="form-row mt-2" id="salePrice-row">
                     @Html.Label("salePrice-management", "Price", new {@id = "salePrice-label-management", @class = "h4"})
                     @Html.TextBox("salePrice-management", "", new {@id = "salePrice-management", @name="salePrice-management", @class="form-management-control"})
         </div> 
-        <div class="form-row mt-2">
+        
+        <div class="form-row mt-2" id="sale-row">
                     @Html.Label("sale-management", "On Sale", new {@id = "sale-label-management", @class = "h4"})
                     @Html.TextBox("sale-management", "", new {@id = "sale-management", @name="sale-management", @class="form-management-control"})
         </div>
-        <div class="form-row mt-2">
+        <div class="form-row mt-2" id="engineSize-row">
                     @Html.Label("engineSize-management", "Engine Size", new {@id = "engineSize-label-management", @class = "h4"})
                     @Html.TextBox("engineSize-management", "", new {@id = "engineSize-management", @name="engineSize-management", @class="form-management-control number"})
         </div>
+        <div class="form-row mt-2" id="category-row">
+                    @Html.Label("category-management", "Category ID", new {@id = "category-label-management", @class = "h4"})
+                    @Html.TextBox("category-management", "", new {@id = "category-management", @name="category-management", @class="form-management-control number"})
+        </div>
+        <div class="form-row mt-2" id="img-row">
+                    @Html.Label("img-management", "Image URL", new {@id = "img-label-management", @class = "h4"})
+                    @Html.TextBox("img-management", "", new {@id = "img-management", @name="img-management", @class="form-management-control"})
+        </div>
+        </col>
+        </row>
         <div class="form-row mt-2" id="input-button-container">
             <!--MAKE COMBO BOX INSTEAD OF BUTTONS KEEP SUBMIT-->
             <button class='btn input-btn' type="button" id="add-button" onclick="buttonClick('add-button');" value="Add">Add</button>
@@ -50,15 +64,60 @@
         </div>
     </fieldset>
 </form>
-    <h1 class="col">Show Details here</h1>
+    <div id="management-details-container" class="col">
+        <table>
+        <tr><td>
+        <p>ID</p>
+        <p id="id-details">ID</p>
+        </td></tr>
+        <tr><td>
+        <p>Brand</p>
+        <p id="brand-details">Brand</p>
+        </td></tr>
+        <tr><td>
+        <p>Model</p>
+        <p id="model-details">Model</p>
+        </td></tr>
+        <tr><td>
+        <p>Year</p>
+        <p id="year-details">Year</p>
+        </td></tr>
+        <tr><td>
+        <p>Price</p>
+        <p id="salePrice-details">SalePrice</p>
+        </td></tr>
+        <tr><td>
+        <p>Is on Sale</p>
+        <p id="sale-details">OnSale</p>
+        </td></tr>
+        <tr><td>
+        <p>Engine Size</p>
+        <p id="engineSize-details">EngineSize</p>
+        </td></tr>
+        </table>
+    </div>
     </div>
     <div id="products-bg-container">
+        @Html.Label("searchTerm", "Search Term", new {@id="search-term-label"})
+        @Html.TextBox("searchTerm", "", new {@id = "searchTerm", @name="searchTerm"})
+        <button onclick="clearProducts(); setSearchTermManagement()"></button>
+        <div id="categories-container" class="container-fluid row justify-content-center">
+        <a onclick="clearProducts(); setSearchTermManagement('categoryID=1');" id="cat-sedan" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/55/55283.png" /><br /><h5>Sedan</h5></a>
+        <a onclick="clearProducts(); setSearchTermManagement('categoryID=2');" id="cat-suv" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/5113/5113923.png" /><h5>SUV</h5></a>
+        <a onclick="clearProducts(); setSearchTermManagement('categoryID=3');" id="cat-ute" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/26/26596.png"/><h5>Ute</h5></a>
+        <a onclick="clearProducts(); setSearchTermManagement('categoryID=4');" id="cat-4x4" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/37/37859.png"/><h5>4x4</h5></a>
+        <a onclick="clearProducts(); setSearchTermManagement('categoryID=5');" id="cat-wagon" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/5952/5952605.png"/><h5>Wagon</h5></a>
+        <a onclick="clearProducts(); setSearchTermManagement('categoryID=6');" id="cat-hatch" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/55/55308.png"/><h5>Hatch</h5></a>
+        <a onclick="clearProducts(); setSearchTermManagement('categoryID=7');" id="cat-2-door" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/68/68321.png"/><h5>Coupe</h5></a>
+        </div>
+        
     <div id="products-container"></div>
     </div>
 </div>
 
 @section Scripts{
     <script>
+        
         let url = "https://localhost:7096/api/Products?size=100";
         fetch(url)
             .then(response => response.json())

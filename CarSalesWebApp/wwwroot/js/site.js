@@ -4,10 +4,11 @@
 
 var allProducts = [];
 var currentProduct;
+var addSelected, editSelected, delSelected = false;
 
 // Write your JavaScript code.
 function populateAllBrandBox(products) {
-    let brandRow = document.getElementById("brand-row");
+    let brandRow = document.getElementById("brand-row-index");
     let brandButton = document.getElementById("brand-drop-button");
     brandButton.options.length = 0;
     //let brandButton = document.getElementById("select");
@@ -34,7 +35,7 @@ function populateAllBrandBox(products) {
 }
 
 function populateAllModelBox(products) {
-    let modelRow = document.getElementById("model-row");
+    let modelRow = document.getElementById("model-row-index");
 
     let modelButton = document.getElementById("model-drop-button");
     //modelButton.id = "model-drop-button";
@@ -95,7 +96,7 @@ function addEventListeners(products) {
 }
 
 function specificBrandModelBox(products) {
-    let modelRow = document.getElementById("model-row");
+    let modelRow = document.getElementById("model-row-index");
     let modelButton = document.getElementById("model-drop-button");
     modelButton.options.length = 0;
     
@@ -185,7 +186,6 @@ function showProducts(products) {
     productsList.appendChild(table);
 
 }
-
 function showProductsManagement(products) {
     let productsList = document.getElementById("products-container");
     var count = 0;  // Count pointer tracks how many products in the row.
@@ -273,6 +273,20 @@ function setSearchTerm(input) {
     filterProducts(searchTerm);
     //getProducts(searchTerm);
 }
+function setSearchTermManagement(input) {
+
+    let searchBar = document.getElementById("searchTerm");
+    let searchTerm;
+    if (searchBar.value.length > 0)
+        searchTerm = "searchTerm=" + searchBar.value + "&";
+    if (input != null)
+        if (searchTerm == null)
+            searchTerm = input;
+        else
+            searchTerm += input;
+    filterProductsManagement(searchTerm);
+    //getProducts(searchTerm);
+}
 
 function filterProducts(searchTerm) {
 
@@ -286,6 +300,17 @@ function filterProducts(searchTerm) {
             console.error(ex);
         });
 
+}
+function filterProductsManagement(searchTerm) {
+    let productsList = document.getElementById("products-container");
+    url = "https://localhost:7096/api/Products?" + searchTerm;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => showProductsManagement(data, productsList))
+        .catch(ex => {
+            alert("error ");
+            console.error(ex);
+        });
 }
 
 function buttonPageDown() {
@@ -325,91 +350,7 @@ function setTextBox(parent, text) {
     element.value = text;
 }
 
-function buttonClick(parent) {
-    let idLabel = document.getElementById('id-label-management');
-    let idBox = document.getElementById('id-management');
-    let brandLabel = document.getElementById('brand-label-management');
-    let brandBox = document.getElementById('brand-management');
-    let modelLabel = document.getElementById('model-label-management');
-    let modelBox = document.getElementById('model-management');
-    let yearLabel = document.getElementById('year-label-management');
-    let yearBox = document.getElementById('year-management');
-    let priceLabel = document.getElementById('salePrice-label-management');
-    let priceBox = document.getElementById('salePrice-management');
-    let onSaleLabel = document.getElementById('sale-label-management');
-    let onSaleBox = document.getElementById('sale-management');
-    let engineSizeLabel = document.getElementById('engineSize-label-management');
-    let engineSizeBox = document.getElementById('engineSize-management');
 
-    switch (parent) {
-        case "add-button":
-            idBox.hidden = true;
-            idLabel.hidden = true;
-            brandBox.hidden = false;
-            brandLabel.hidden = false;
-            modelBox.hidden = false;
-            modelLabel.hidden = false;
-            yearBox.hidden = false;
-            yearLabel.hidden = false;
-            priceBox.hidden = false;
-            priceLabel.hidden = false;
-            onSaleBox.hidden = false;
-            onSaleLabel.hidden = false;
-            engineSizeBox.hidden = false;
-            engineSizeLabel.hidden = false;
-            break;
-
-        case "edit-button":
-            idBox.hidden = false;
-            idLabel.hidden = false;
-            brandBox.hidden = false;
-            brandLabel.hidden = false;
-            modelBox.hidden = false;
-            modelLabel.hidden = false;
-            yearBox.hidden = false;
-            yearLabel.hidden = false;
-            priceBox.hidden = false;
-            priceLabel.hidden = false;
-            onSaleBox.hidden = false;
-            onSaleLabel.hidden = false;
-            engineSizeBox.hidden = false;
-            engineSizeLabel.hidden = false;
-            break;
-
-        case "delete-button":
-            idBox.hidden = false;
-            idLabel.hidden = false;
-            brandBox.hidden = true;
-            brandLabel.hidden = true;
-            modelBox.hidden = true;
-            modelLabel.hidden = true;
-            yearBox.hidden = true;
-            yearLabel.hidden = true;
-            priceBox.hidden = true;
-            priceLabel.hidden = true;
-            onSaleBox.hidden = true;
-            onSaleLabel.hidden = true;
-            engineSizeBox.hidden = true;
-            engineSizeLabel.hidden = true;
-            break;
-        case "restore":
-            idBox.hidden = false;
-            idLabel.hidden = false;
-            brandBox.hidden = false;
-            brandLabel.hidden = false;
-            modelBox.hidden = false;
-            modelLabel.hidden = false;
-            yearBox.hidden = false;
-            yearLabel.hidden = false;
-            priceBox.hidden = false;
-            priceLabel.hidden = false;
-            onSaleBox.hidden = false;
-            onSaleLabel.hidden = false;
-            engineSizeBox.hidden = false;
-            engineSizeLabel.hidden = false;
-            break;
-    }
-}
 
 function setCurrentProduct(curProduct) {
     currentProduct = curProduct;
@@ -439,6 +380,7 @@ function closePopup() {
     popup.hidden = true;
 }
 function fillBoxes() {
+    
     let id = getCurrentProduct();
     url = "https://localhost:7096/products/Products?id=" + id;
     fetch(url)
@@ -449,20 +391,45 @@ function fillBoxes() {
             console.error(ex);
         });
 }
-
+function fillManagementDisplay(url) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => setPopupDetails(data, id))
+        .catch(ex => {
+            alert("error ");
+            console.error(ex);
+        });
+}
 function setBoxDetails(product, id) {
+    
     if (id == product.id) {
-            setTextBox("id-management", product.id);
-            setTextBox("brand-management", product.brand);
-            setTextBox("model-management", product.model);
-            setTextBox("year-management", product.year);
-            setTextBox("salePrice-management", product.salePrice);
-            setTextBox("sale-management", product.sale);
-            setTextBox("engineSize-management", product.engineSize);
-        }
+        setTextBox("id-management", product.id);
+        setTextBox("brand-management", product.brand);
+        setTextBox("model-management", product.model);
+        setTextBox("year-management", product.year);
+        setTextBox("salePrice-management", product.salePrice);
+        setTextBox("sale-management", BoolToString(product.sale));
+        setTextBox("engineSize-management", product.engineSize);
+        setTextBox("img-management", product.img);
+        setTextBox("category-management", product.categoryID);
+
+    }
+    
 
 }
-
+function BoolToString(input) {
+    if (input) 
+        return "true";
+    else
+        return "false";
+    
+}
+function DetermineBool(bool) {
+    if (bool == "true")
+        return true;
+    else
+        return false;
+}
 function setPopupDetails(product, id) {
     
         if (id == product.id) {
@@ -476,4 +443,202 @@ function setPopupDetails(product, id) {
             setImage("car-image", product.img);
         }
     
+}
+function buttonClick(parent) {
+    let idLabel = document.getElementById('id-label-management');
+    let idBox = document.getElementById('id-management');
+    let brandLabel = document.getElementById('brand-label-management');
+    let brandBox = document.getElementById('brand-management');
+    let modelLabel = document.getElementById('model-label-management');
+    let modelBox = document.getElementById('model-management');
+    let yearLabel = document.getElementById('year-label-management');
+    let yearBox = document.getElementById('year-management');
+    let priceLabel = document.getElementById('salePrice-label-management');
+    let priceBox = document.getElementById('salePrice-management');
+    let onSaleLabel = document.getElementById('sale-label-management');
+    let onSaleBox = document.getElementById('sale-management');
+    let engineSizeLabel = document.getElementById('engineSize-label-management');
+    let engineSizeBox = document.getElementById('engineSize-management');
+    let imgBox = document.getElementById('img-management');
+    let categoryIDBox = document.getElementById('category-management');
+
+    let addButton = document.getElementById('add-button');
+    let editButton = document.getElementById('edit-button');
+    let deleteButton = document.getElementById('delete-button');
+    let submitButton = document.getElementById('submit-button');
+    let restoreButton = document.getElementById('restore-button');
+
+    let errorLine = document.getElementById("error-line");
+
+    switch (parent) {
+        case "add-button":
+            addSelected = true;
+            editSelected = delSelected = false;
+            idBox.hidden = true;
+            idLabel.hidden = true;
+            brandBox.hidden = false;
+            brandLabel.hidden = false;
+            modelBox.hidden = false;
+            modelLabel.hidden = false;
+            yearBox.hidden = false;
+            yearLabel.hidden = false;
+            priceBox.hidden = false;
+            priceLabel.hidden = false;
+            onSaleBox.hidden = false;
+            onSaleLabel.hidden = false;
+            engineSizeBox.hidden = false;
+            engineSizeLabel.hidden = false;
+            imgBox.hidden = false;
+            categoryIDBox.hidden = false;
+            addButton.style = "background-color: #9999b2;";
+            editButton.style = "background-color: #3c3659;";
+            deleteButton.style = "background-color: #3c3659;";
+            submitButton.style = "background-color: #3c3659;";
+            restoreButton.style = "background-color: #3c3659;";
+            break;
+
+        case "edit-button":
+            editSelected = true;
+            addSelected = delSelected = false;
+            idBox.hidden = true;
+            idLabel.hidden = true;
+            brandBox.hidden = false;
+            brandLabel.hidden = false;
+            modelBox.hidden = false;
+            modelLabel.hidden = false;
+            yearBox.hidden = false;
+            yearLabel.hidden = false;
+            priceBox.hidden = false;
+            priceLabel.hidden = false;
+            onSaleBox.hidden = false;
+            onSaleLabel.hidden = false;
+            engineSizeBox.hidden = false;
+            engineSizeLabel.hidden = false;
+            imgBox.hidden = false;
+            categoryIDBox.hidden = false;
+            addButton.style = "background-color: #3c3659;";
+            editButton.style = "background-color:  #9999b2;";
+            deleteButton.style = "background-color: #3c3659;";
+            submitButton.style = "background-color: #3c3659;";
+            restoreButton.style = "background-color: #3c3659;";
+            break;
+
+        case "delete-button":
+            delSelected = true;
+            addSelected = editSelected = false;
+            idBox.hidden = false;
+            idLabel.hidden = false;
+            brandBox.hidden = true;
+            brandLabel.hidden = true;
+            modelBox.hidden = true;
+            modelLabel.hidden = true;
+            yearBox.hidden = true;
+            yearLabel.hidden = true;
+            priceBox.hidden = true;
+            priceLabel.hidden = true;
+            onSaleBox.hidden = true;
+            onSaleLabel.hidden = true;
+            engineSizeBox.hidden = true;
+            engineSizeLabel.hidden = true;
+            imgBox.hidden = true;
+            categoryIDBox.hidden = true;
+            addButton.style = "background-color: #3c3659;";
+            editButton.style = "background-color:  #3c3659;";
+            deleteButton.style = "background-color: #9999b2;";
+            submitButton.style = "background-color: #3c3659;";
+            restoreButton.style = "background-color: #3c3659;";
+            break;
+        case "submit-button":
+            if (!addSelected && !editSelected && !delSelected) {
+                errorLine.innerHTML = "Select an operation.";
+                errorLine.hidden = false;
+            }
+            else if (addSelected)
+                addNewProduct();
+            //else if (editSelected)
+                //editCurrentProduct();
+            //else if (delSelected)
+                //deleteCurrentProduct();
+            addButton.style = "background-color: #3c3659;";
+            editButton.style = "background-color:  #3c3659;";
+            deleteButton.style = "background-color: #3c3659;";
+            submitButton.style = "background-color: #3c3659;";
+            restoreButton.style = "background-color: #3c3659;";
+            addSelected = editSelected = delSelected = false;
+            break;
+        case "restore":
+            idBox.hidden = false;
+            idLabel.hidden = false;
+            brandBox.hidden = false;
+            brandLabel.hidden = false;
+            modelBox.hidden = false;
+            modelLabel.hidden = false;
+            yearBox.hidden = false;
+            yearLabel.hidden = false;
+            priceBox.hidden = false;
+            priceLabel.hidden = false;
+            onSaleBox.hidden = false;
+            onSaleLabel.hidden = false;
+            engineSizeBox.hidden = false;
+            engineSizeLabel.hidden = false;
+            imgBox.hidden = false;
+            categoryIDBox.hidden = false;
+            addButton.style = "background-color: #3c3659;";
+            editButton.style = "background-color:  #3c3659;";
+            deleteButton.style = "background-color: #3c3659;";
+            submitButton.style = "background-color: #3c3659;";
+            restoreButton.style = "background-color: #3c3659;";
+            break;
+    }
+}
+async function addNewProduct() {
+    let brandBox = document.getElementById('brand-management');
+    let modelBox = document.getElementById('model-management');
+    let yearBox = document.getElementById('year-management');
+    let priceBox = document.getElementById('salePrice-management');
+    let onSaleBox = document.getElementById('sale-management');
+    let engineSizeBox = document.getElementById('engineSize-management');
+    let imgBox = document.getElementById('img-management');
+    let categoryIDBox = document.getElementById('category-management');
+    let error = document.getElementById("error-line");
+
+
+    if (brandBox.value.length > 0 && modelBox.value.length > 0 && yearBox.value.length > 0
+        && priceBox.value.length > 0 && onSaleBox.value.length > 0 && engineSizeBox.value.length > 0) {
+        error.hidden = true;
+        let url = "https://localhost:7096/api/Products";
+        let response = await fetch(url, {
+            
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Expose-Headers': 'location'
+            },
+            body: JSON.stringify(
+                {
+                    "brand": brandBox.value,
+                    "model": modelBox.value,
+                    "year": parseInt(yearBox.value),
+                    "salePrice": parseInt(priceBox.value),
+                    "onSale": DetermineBool(onSaleBox.value),
+                    "engineSize": parseInt(engineSizeBox.value),
+                    "img": imgBox.value,
+                    "categoryID": parseInt(categoryIDBox.value)
+                })
+        });
+        //fillManagementDisplay(response.headers.get('location'));
+        clearProducts();
+        filterProductsManagement("size=100&sortOrder=desc");
+    }
+    else {
+        error.innerHTML = "Fill all boxes before submission.";
+        error.hidden = false;
+    }
+}   
+
+function editCurrentProduct() {
+
+}
+function deleteCurrentProduct() {
+
 }

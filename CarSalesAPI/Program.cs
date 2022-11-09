@@ -1,5 +1,6 @@
 using CarSalesAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,12 @@ builder.Services.AddCors(options =>
     {
         builder
         .WithOrigins("https://localhost:7148")
-        .WithHeaders("CarSale-api-Version");
+        .WithHeaders("CarSale-api-Version")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+        //.WithHeaders("Content-Type", "application/json")
+        //.WithHeaders("Access-Control-Allow-Methods", "POST")
+        //.WithMethods("POST", "PUT", "DELETE", "GET");
     });
 });
 

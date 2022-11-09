@@ -15,13 +15,13 @@
     <form id="search-form" method="GET">
         <fieldset class="form-container">
             <legend><h3>Find your perfect whip.</h3></legend>
-            <div class="form-row mt-2" id="brand-row">
+            <div class="form-row mt-2" id="brand-row-index">
                 @Html.Label("brand-drop-button", "Brand", new {@class = "h4"})
                 <select id="brand-drop-button" class="form-control" name="brand-drop-button"></select>
                <!-- @Html.TextBox("brand", "", new {@id = "brand", @name="brand"})-->
                 
             </div>
-            <div class="form-row mt-2" id="model-row">
+            <div class="form-row mt-2" id="model-row-index">
                 @Html.Label("model-drop-button", "Model", new {@class = "h4"})
                 <select id="model-drop-button" class="form-control" name="model-drop-button"></select>
                <!--@Html.TextBox("model", "", new {@id = "model", @name="model", @class="form-control"})-->
@@ -68,52 +68,25 @@
     <div class="container" id="details-box">
         <table id="popup-table">
         <tr>
-            <th>
-            <p>ID</p>
-            </th>
-            <td>
-            <p id="id-details">ID</p>
-            </td>
-            <th>
-            <p>Brand</p>
-            </th>
-            <td>
-            <p id="brand-details">Brand</p>
-            </td>
-            <th>
-            <p>Model</p>
-            </th>
-            <td>
-            <p id="model-details">Model</p>
-            </td>
+            <th><p>ID</p></th>
+            <td><p id="id-details">ID</p></td>
+            <th><p>Brand</p></th>
+            <td><p id="brand-details">Brand</p></td>
+            <th><p>Model</p></th>
+            <td><p id="model-details">Model</p></td>
         </tr>
         <tr>
-            <th>
-            <p>Year</p>
-            </th>
-            <td>
-            <p id="year-details">Year</p>
-            </td>
-            <th>
-            <p>Price</p>
-            </th>
-            <td>
-            <p id="salePrice-details">SalePrice</p>
-            </td>
-
-            <th>
-            <p>Is on Sale</p>
-            </th>
-            <td>
-            <p id="sale-details">OnSale</p>
-            </td>
-
-            <th>
-            <p>Engine Size</p>
-            </th>
-            <td>
-            <p id="engineSize-details">EngineSize</p>
-            </td>
+            <th><p>Year</p></th>
+            <td><p id="year-details">Year</p></td>
+            <th><p>Price</p</th>
+            <td><p id="salePrice-details">SalePrice</p</td>
+            <th><p>Is on Sale</p</th>
+            <td><p id="sale-details">OnSale</p</td>
+            
+                </tr>
+                <tr>
+                    <th><p>Engine Size</p</th>
+            <td><p id="engineSize-details">EngineSize</p</td>
         </tr>
         </table>
     </div>
