@@ -460,11 +460,12 @@ label {
     #management-details-container table {
         display: grid;
         position: relative;
-        padding-top: 4.2vw;
+        padding-top: 2.1vw;
+        padding-bottom: 2.1vw;
         min-height: 18vh;
-        height: 100%;
         max-height: 27vw;
         margin-left: 1vw;
+        margin: auto;
     }
 
 #management-details-container table tr {
@@ -492,12 +493,15 @@ label {
         #management-details-container table tr th p {
             margin: 0px;
         }
+#image-details-cell {
+    position:page;
+    margin: auto;
+}
 #image-details-cell #car-image {
-    position: absolute;
+    position: relative;
     background: #2e2a42;
-    top: 2.5vw;
-    left: 18.8vw;
-    width: 32vw;
+
+    width: 30vw;
     max-width: 30vw;
     padding: 15px;
     border: solid black 1px;
