@@ -656,14 +656,18 @@ async function editCurrentProduct() {
     }
 }
 async function deleteCurrentProduct() {
-    let url = "https://localhost:7096/api/Products/" + getCurrentProduct();
-    await fetch(url, {
-        method: "DELETE",
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-        },
-    });
-    console.log("deleted " + getCurrentProduct());
-    clearProducts();
-    filterProductsManagement("size=100&sortOrder=desc");
+    let idBox = document.getElementById("id-management");
+    if (idBox != null) {
+        let url = "https://localhost:7096/api/Products/" + idBox.value;
+        await fetch(url, {
+            method: "DELETE",
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+        });
+        console.log("deleted " + idBox.value);
+        clearProducts();
+        filterProductsManagement("size=100");
+        idBox.value = "";
+    }
 }

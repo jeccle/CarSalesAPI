@@ -369,7 +369,7 @@ label {
     background: grey;
     margin-bottom: 2vw;
     border-radius: 10px;
-    border: solid black 3px;
+    border: double black 5px;
 }
 #management-form h3 {
     font-size: 1.5vw;
@@ -455,7 +455,7 @@ label {
     min-height: 18vh;
     height: auto;
     max-height: 27vw;
-    border: solid black 3px;
+    border: double black 5px;
 }
     #management-details-container table {
         display: grid;
@@ -470,19 +470,19 @@ label {
 #management-details-container table tr {
     margin-top: 1vw;
     height: 2.5vw;
-    border-top: solid white 2px;
+    border-top: double white 1.5px;
     width: 100%;
 }
     #management-details-container table tr th {
         padding-right: 3vw;
-        color: wheat;
+        color: black;
         font-weight: 600;
-        font-size: 1vw;
+        font-size: 1.1vw;
         padding-left: 1.75vw
     }
     #management-details-container table tr td {
-        color: wheat;
-        font-size: 1vw;
+        color: black;
+        font-size: 1.1vw;
         font-weight: 300;
         padding-right: 2vw;
     }
@@ -494,13 +494,15 @@ label {
         }
 #image-details-cell #car-image {
     position: absolute;
-    background: #9999b2;
-    top: 3.5vw;
-    left: 18vw;
-    width: 30vw;
-    padding: 20px;
-    border: solid black 2px;
+    background: #2e2a42;
+    top: 2.5vw;
+    left: 18.8vw;
+    width: 32vw;
+    max-width: 30vw;
+    padding: 15px;
+    border: solid black 1px;
     border-radius: 5px;
+    max-height: 20vw
 }
 
 /*#endregion*/
