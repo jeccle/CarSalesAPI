@@ -7,40 +7,40 @@
 
 
 <body>
-    
+
 
 <div id="index-bg-image"></div>
 <div id="search-container" class="container background">
-    
+
     <form id="search-form" method="GET">
         <fieldset class="form-container">
             <legend><h3>Find your perfect whip.</h3></legend>
             <div class="form-row mt-2" id="brand-row-index">
-                @Html.Label("brand-drop-button", "Brand", new {@class = "h4"})
+                    @Html.Label("brand-drop-button", "Brand", new {@class = "h4"})
                 <select id="brand-drop-button" class="form-control" name="brand-drop-button"></select>
                <!-- @Html.TextBox("brand", "", new {@id = "brand", @name="brand"})-->
-                
+
             </div>
             <div class="form-row mt-2" id="model-row-index">
-                @Html.Label("model-drop-button", "Model", new {@class = "h4"})
+                    @Html.Label("model-drop-button", "Model", new {@class = "h4"})
                 <select id="model-drop-button" class="form-control" name="model-drop-button"></select>
                <!--@Html.TextBox("model", "", new {@id = "model", @name="model", @class="form-control"})-->
             </div>
             <div class="form-row mt-2">
-                @Html.Label("year", "Year", new {@class = "h4"})
-                @Html.TextBox("year", "", new {@id = "year", @name="year", @class="form-control number year"})
+                    @Html.Label("year", "Year", new {@class = "h4"})
+                    @Html.TextBox("year", "", new {@id = "year", @name="year", @class="form-control number year"})
             </div>
             <div class="form-row mt-2">
-                @Html.Label("engineSize", "Engine Size", new {@class = "h4"})
-                @Html.TextBox("engineSize", "", new {@id = "engineSize", @name="engineSize", @class="form-control number"})
+                    @Html.Label("engineSize", "Engine Size", new {@class = "h4"})
+                    @Html.TextBox("engineSize", "", new {@id = "engineSize", @name="engineSize", @class="form-control number"})
             </div>
             <div class="form-row mt-2">
                 <input class='btn' type="button" id="search-button" value="Search" onclick="clearProducts(); setSearchTerm();">
             </div>
         </fieldset>
     </form>
-    
-    
+
+
 </div>
 
 <div id="products-bg">
@@ -63,39 +63,48 @@
 </div>
 </div>
 
-    <div class="popup-details" id="details-container">
+
+
+<div class="popup-details" id="details-container">
     <div class="col" id="details-info-container">
-    <div class="container" id="details-box">
+        <div class="container" id="details-box">
         <table id="popup-table">
         <tr>
             <th><p>ID</p></th>
             <td><p id="id-details">ID</p></td>
+        </tr>
+        <tr>
             <th><p>Brand</p></th>
             <td><p id="brand-details">Brand</p></td>
+        </tr>
+        <tr>
             <th><p>Model</p></th>
             <td><p id="model-details">Model</p></td>
         </tr>
         <tr>
             <th><p>Year</p></th>
             <td><p id="year-details">Year</p></td>
+        </tr>
+        <tr>
             <th><p>Price</p</th>
             <td><p id="salePrice-details">SalePrice</p</td>
+        </tr>
+        <tr>
             <th><p>Is on Sale</p</th>
             <td><p id="sale-details">OnSale</p</td>
-            
-                </tr>
-                <tr>
-                    <th><p>Engine Size</p</th>
+        </tr>
+        <tr>
+            <th><p>Engine Size</p</th>
             <td><p id="engineSize-details">EngineSize</p</td>
         </tr>
         </table>
-    </div>
-    <span id="close-button" onclick="closePopup()">&times;</span>
-    <div id="popup-image">
-        <img src="" alt="" id="car-image" />
-    </div>
         </div>
-         </div>
+        <span id="close-button" onclick="closePopup()">&times;</span>
+        <div id="popup-image">
+            <img src="" alt="" id="car-image" />
+        </div>
+    </div>
+</div>
 
 
 </body>
@@ -103,22 +112,21 @@
 
 
 @section Scripts {
-    <script>   
-        closePopup();
-        var currentPage = getPage();
-        let url = "https://localhost:7096/api/Products?page=" + currentPage;
-        fetch(url)
-            .then(response => response.json())
-            .then(data => showProducts(data))
-            .catch(ex => {
-                alert("error ");
-                console.error(ex);
-            });
-            
-        
-        
+                <script>   
+                    closePopup();
+                    var currentPage = getPage();
+                    let url = "https://localhost:7096/api/Products?page=" + currentPage;
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => showProducts(data))
+                        .catch(ex => {
+                            alert("error ");
+                            console.error(ex);
+                        });
 
-    </script>
+
+
+
+                </script>
 }
-        
-        
+

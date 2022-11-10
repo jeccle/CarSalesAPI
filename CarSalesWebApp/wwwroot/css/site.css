@@ -19,12 +19,13 @@ body {
 }
 #products-container table {
     background-color: #3c3659;
-    border-radius: 20px;
+    border-radius: 5px;
     padding: 10px;
     z-index: 1;
     width: 99%;
     position:relative;
     display:block;
+    border:solid grey 2px;
 }
 #products-container table tr td {
     height: 200px;
@@ -71,27 +72,14 @@ a.navbar-brand {
 }
 #register {
     border-bottom: double;
-    border-color: aqua;
+    border-color: #3C424B;
     margin-right: 10px;
     margin: 0px 10px;
 }
 #login {
     border-bottom: double;
-    border-color: aqua;
+    border-color: #3C424B;
     margin: 0px 10px;
-}
-form-container {
-    padding: 20px;
-    justify-items: center;
-    display:grid;
-}
-form-row {
-    display: table-row-group;
-    justify-items: center;
-    justify-content: center;
-    padding: 50px;
-    margin-top: 200px;
-
 }
 select {
     width: 205px;
@@ -239,7 +227,7 @@ label {
 #details-container {
     position: fixed;
     background-color: #3c3659;
-    width: 35vw;
+    width: 33vw;
     margin: auto;
     height: 20vw;
     top: 0;
@@ -249,9 +237,9 @@ label {
     z-index: 100;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    border: solid #9999b2 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: solid black 5px;
 }
 .popup-container {
     margin:auto;
@@ -266,86 +254,98 @@ label {
         z-index: 100;
         height: 17vw;
         overflow: hidden;
-        top: 1.6vw;
+        top: 1.3vw;
         right: 0;
         bottom: 0;
-        left: 2.35vw;
+        left: 1.17vw;
         border: solid #9999b2 3px;
         object-fit: cover;
-        border-top-left-radius: 30px;
-        border-top-right-radius: 30px;
-        border-bottom-left-radius: 30px;
-        border-bottom-right-radius: 30px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
     }
-#car-image {
+#popup-image #car-image {
     width: 30vw;
 
 }
 #details-box {
     position: absolute;
     background: #2e2a42;
-    display: inline-block;
-    width: 32.5vw;
-    top: 20.1vw;
-    left: 0.8vw;
+    display: grid;
+    align-content: center;
+    width: 15vw;
+    top: 0vw;
+    left: 33.4vw;
     height: fit-content;
-    max-height: 12vh;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border: solid #9999b2;
+    max-height: 40vw;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: solid black;
 }
 #details-box row {
     display: inline-block;
 }
 #details-box table {
-    width: 32vw;
+    width: 13vw;
     table-layout:auto;
     display: table;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 #popup-table th {
     margin: auto;
     width: 0.5vw;
+    
 }
 #details-box table tr {
     display: table-row;
-    width: 25vw;
+    width: 15vw;
     height: 20px;
     height: min-content;
+    border-bottom: solid white 1px;
 }
 #details-box table tr td { 
     margin: auto;
     height: fit-content;
     width: 0.5vw;
+    
 }
     #details-box table tr th p {
         display: inline-table;
         padding-left: 20px;
         margin: 0px;
         font-size: 1vw;
-        color: #c3c3c3;
+        font-weight: 200;
+        color: white;
+        font-weight: 450;
     }
     #details-box table tr td p {
         display: inline-table;
         padding-left: 20px;
         margin: 0px;
         font-size: 1vw;
-        color: #c3c3c3;
+        color: white;
+        font-weight: 200;
     }
 
 #close-button {
     position: absolute;
-    right: 0.4vw;
-    top: -1.4vw;
+    right: -15vw;
+    top: -1vw;
     z-index: 100;
     font-weight: bold;
-    font-size: 3vw;
+    font-size: 2.5vw;
     color: white;
 }
 #close-button:hover {
         color: red;
         cursor: pointer;
+}
+#salePrice-details::before{
+    content:"$";
 }
 /*#endregion*/
 /*#region Management-form*/
@@ -353,28 +353,51 @@ label {
     height: auto;
     position: relative;
     align-content: center;
+    background: #2e2a42;
+}
+#manage-title {
+    margin-top: 2vw;
+    margin-bottom: 2vw;
 }
 #management-form {
-    display: block;
-    width: 40vw;
-    margin-left: 2vw;
-    max-height: 75vh;
-    min-height: 30vh;
-
+    display: inline-block;
+    width: 35vw;
+    margin-left: 3vw;
+    max-height: 74vh;
+    height:fit-content;
+    min-height: 16vh;
+    background: grey;
+    margin-bottom: 2vw;
+    border-radius: 10px;
+    border: solid black 3px;
+}
+#management-form h3 {
+    font-size: 1.5vw;
 }
 #management-title {
     height: auto;
     text-align:center;
 }
+
 #id-row, #brand-row, #model-row, #year-row, #salePrice-row, #sale-row, #engineSize-row, #img-row, #category-row {
-    margin-left: 0vw;
-    display: inline-grid;
+    margin: auto;
+    display: inline-table;
+    max-width: 19vw;
+    min-width: 0vw;
+
+   
 }
-#img-row form-management-control{
+.management-col .form-row {
+    margin: auto;
+    display: inline-block;
+    width: 20vw;
+}
+#img-row#img-management{
     width: 25vw;
 }
 .management-col {
     position: relative;
+    display: grid;
 }
 #management-bg-container {
     height: 100vh;
@@ -388,20 +411,22 @@ label {
 }
 .form-management-control {
     display: block;
-    width: 15vw;
-    overflow: visible
+    width: 100%;
+    margin: auto;
 }
 .input-button-container {
     width: 40vw;
     display: inline-block;
 }
 .input-btn {
-    width: 8vw;
+    width: 7vw;
     display: inline-block;
-    overflow: visible;
+    grid-auto-columns:auto;
+    overflow:auto;
     background-color: #3c3659;
     color: white;
     margin: 0.2vw;
+    margin-bottom: 1vw;
     font-size: 1vw;
 }
 .input-btn:hover {
@@ -409,7 +434,7 @@ label {
 }
 #input-button-container {
     margin-left: 0vw;
-    padding-top: 20px;
+    padding-top: 0.3vw;
 }
 #products-bg-container {
     background: #3C424B;
@@ -421,11 +446,62 @@ label {
     overflow:hidden;
 }
 #management-details-container {
-    display: block;
+    display: flex;
+    background: #7c7c7c;
+    border-radius: 15px;
+    margin-bottom: 2vw;
+    margin-right: 5vw;
+    margin-left: 2vw;
+    min-height: 18vh;
+    height: auto;
+    max-height: 27vw;
+    border: solid black 3px;
 }
-#management-details-container table {
-    display:inline-block;
-    position:relative ;
+    #management-details-container table {
+        display: grid;
+        position: relative;
+        padding-top: 4.2vw;
+        min-height: 18vh;
+        height: 100%;
+        max-height: 27vw;
+        margin-left: 1vw;
+    }
+
+#management-details-container table tr {
+    margin-top: 1vw;
+    height: 2.5vw;
+    border-top: solid white 2px;
+    width: 100%;
 }
+    #management-details-container table tr th {
+        padding-right: 3vw;
+        color: wheat;
+        font-weight: 600;
+        font-size: 1vw;
+        padding-left: 1.75vw
+    }
+    #management-details-container table tr td {
+        color: wheat;
+        font-size: 1vw;
+        font-weight: 300;
+        padding-right: 2vw;
+    }
+    #management-details-container table tr td p {
+        margin: 0px;
+    }
+        #management-details-container table tr th p {
+            margin: 0px;
+        }
+#image-details-cell #car-image {
+    position: absolute;
+    background: #9999b2;
+    top: 3.5vw;
+    left: 18vw;
+    width: 30vw;
+    padding: 20px;
+    border: solid black 2px;
+    border-radius: 5px;
+}
+
 /*#endregion*/
 

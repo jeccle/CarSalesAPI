@@ -203,14 +203,14 @@ function showProductsManagement(products) {
         text.appendChild(document.createTextNode(details));
         if (count % 4 == 0) {
             let row = document.createElement("tr");
-            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + "); fillBoxes();"); // fill this with detail view.
+            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + "); fillBoxes(); showManagementControls();"); // fill this with detail view.
             cell.appendChild(image);
             cell.appendChild(text);
             row.appendChild(cell);
             table.appendChild(row);
         }
         else {
-            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + "); fillBoxes();");
+            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + "); fillBoxes(); showManagementControls();");
             cell.appendChild(image);
             cell.appendChild(text);
             table.lastElementChild.appendChild(cell);
@@ -319,7 +319,6 @@ function buttonPageDown() {
     currentPage = getPage();
     setSearchTerm("page=" + (currentPage));
 }
-
 function buttonPageUp() {
     clearProducts();
     currentPage++;
@@ -334,32 +333,31 @@ function getPage() {
         currentPage = 3;
     return currentPage;
 }
-
+function getCurrentProduct() {
+    return currentProduct;
+}
 function changeText(parent, text) {
     let element = document.getElementById(parent);
     element.innerText = text;
 }
-
 function setImage(parent, image) {
     let element = document.getElementById(parent);
     element.src = image;
 }
-
 function setTextBox(parent, text) {
     let element = document.getElementById(parent);
     element.value = text;
 }
-
-
-
 function setCurrentProduct(curProduct) {
     currentProduct = curProduct;
 }
 
-function getCurrentProduct() {
-    return currentProduct;
+function showManagementControls() {
+    let inputForm = document.getElementById("management-form");
+    let managementDetails = document.getElementById("management-details-container");
+    inputForm.hidden = false;
+    managementDetails.hidden = false;
 }
-
 function showPopup() {
     let detailsContainer = document.getElementById("details-container");
     detailsContainer.hidden = false;
@@ -385,7 +383,7 @@ function fillBoxes() {
     url = "https://localhost:7096/products/Products?id=" + id;
     fetch(url)
         .then(response => response.json())
-        .then(data => setBoxDetails(data, id))
+        .then(data => { setBoxDetails(data, id); setPopupDetails(data, id) })
         .catch(ex => {
             alert("error ");
             console.error(ex);
@@ -460,13 +458,14 @@ function buttonClick(parent) {
     let engineSizeLabel = document.getElementById('engineSize-label-management');
     let engineSizeBox = document.getElementById('engineSize-management');
     let imgBox = document.getElementById('img-management');
+    let imgLabel = document.getElementById('img-label-management');
     let categoryIDBox = document.getElementById('category-management');
+    let categoryIDLabel = document.getElementById('category-label-management');
 
     let addButton = document.getElementById('add-button');
     let editButton = document.getElementById('edit-button');
     let deleteButton = document.getElementById('delete-button');
     let submitButton = document.getElementById('submit-button');
-    let restoreButton = document.getElementById('restore-button');
 
     let errorLine = document.getElementById("error-line");
 
@@ -489,12 +488,13 @@ function buttonClick(parent) {
             engineSizeBox.hidden = false;
             engineSizeLabel.hidden = false;
             imgBox.hidden = false;
+            imgLabel.hidden = false;
             categoryIDBox.hidden = false;
+            categoryIDLabel.hidden = false;
             addButton.style = "background-color: #9999b2;";
             editButton.style = "background-color: #3c3659;";
             deleteButton.style = "background-color: #3c3659;";
             submitButton.style = "background-color: #3c3659;";
-            restoreButton.style = "background-color: #3c3659;";
             break;
 
         case "edit-button":
@@ -515,12 +515,13 @@ function buttonClick(parent) {
             engineSizeBox.hidden = false;
             engineSizeLabel.hidden = false;
             imgBox.hidden = false;
+            imgLabel.hidden = false;
             categoryIDBox.hidden = false;
+            categoryIDLabel.hidden = false;
             addButton.style = "background-color: #3c3659;";
             editButton.style = "background-color:  #9999b2;";
             deleteButton.style = "background-color: #3c3659;";
             submitButton.style = "background-color: #3c3659;";
-            restoreButton.style = "background-color: #3c3659;";
             break;
 
         case "delete-button":
@@ -540,13 +541,14 @@ function buttonClick(parent) {
             onSaleLabel.hidden = true;
             engineSizeBox.hidden = true;
             engineSizeLabel.hidden = true;
+            imgLabel.hidden = true;
             imgBox.hidden = true;
+            categoryIDLabel.hidden = true;
             categoryIDBox.hidden = true;
             addButton.style = "background-color: #3c3659;";
             editButton.style = "background-color:  #3c3659;";
             deleteButton.style = "background-color: #9999b2;";
             submitButton.style = "background-color: #3c3659;";
-            restoreButton.style = "background-color: #3c3659;";
             break;
         case "submit-button":
             if (!addSelected && !editSelected && !delSelected) {
@@ -555,39 +557,15 @@ function buttonClick(parent) {
             }
             else if (addSelected)
                 addNewProduct();
-            //else if (editSelected)
-                //editCurrentProduct();
-            //else if (delSelected)
-                //deleteCurrentProduct();
+            else if (editSelected)
+                editCurrentProduct();
+            else if (delSelected)
+                deleteCurrentProduct();
             addButton.style = "background-color: #3c3659;";
             editButton.style = "background-color:  #3c3659;";
             deleteButton.style = "background-color: #3c3659;";
             submitButton.style = "background-color: #3c3659;";
-            restoreButton.style = "background-color: #3c3659;";
             addSelected = editSelected = delSelected = false;
-            break;
-        case "restore":
-            idBox.hidden = false;
-            idLabel.hidden = false;
-            brandBox.hidden = false;
-            brandLabel.hidden = false;
-            modelBox.hidden = false;
-            modelLabel.hidden = false;
-            yearBox.hidden = false;
-            yearLabel.hidden = false;
-            priceBox.hidden = false;
-            priceLabel.hidden = false;
-            onSaleBox.hidden = false;
-            onSaleLabel.hidden = false;
-            engineSizeBox.hidden = false;
-            engineSizeLabel.hidden = false;
-            imgBox.hidden = false;
-            categoryIDBox.hidden = false;
-            addButton.style = "background-color: #3c3659;";
-            editButton.style = "background-color:  #3c3659;";
-            deleteButton.style = "background-color: #3c3659;";
-            submitButton.style = "background-color: #3c3659;";
-            restoreButton.style = "background-color: #3c3659;";
             break;
     }
 }
@@ -608,11 +586,9 @@ async function addNewProduct() {
         error.hidden = true;
         let url = "https://localhost:7096/api/Products";
         let response = await fetch(url, {
-            
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Expose-Headers': 'location'
+                'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
             },
             body: JSON.stringify(
                 {
@@ -636,9 +612,58 @@ async function addNewProduct() {
     }
 }   
 
-function editCurrentProduct() {
+async function editCurrentProduct() {
+    let idBox = document.getElementById('id-management');
+    let brandBox = document.getElementById('brand-management');
+    let modelBox = document.getElementById('model-management');
+    let yearBox = document.getElementById('year-management');
+    let priceBox = document.getElementById('salePrice-management');
+    let onSaleBox = document.getElementById('sale-management');
+    let engineSizeBox = document.getElementById('engineSize-management');
+    let imgBox = document.getElementById('img-management');
+    let categoryIDBox = document.getElementById('category-management');
+    let error = document.getElementById("error-line");
 
+    if (brandBox.value.length > 0 && modelBox.value.length > 0 && yearBox.value.length > 0
+        && priceBox.value.length > 0 && onSaleBox.value.length > 0 && engineSizeBox.value.length > 0) {
+        error.hidden = true;
+        let url = "https://localhost:7096/api/Products/" + getCurrentProduct();
+        let response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                'Content-type': 'application/json' // Indicates the content 
+            },
+            body: JSON.stringify(
+                {
+                    "id": idBox.value,
+                    "brand": brandBox.value,
+                    "model": modelBox.value,
+                    "year": parseInt(yearBox.value),
+                    "salePrice": parseInt(priceBox.value),
+                    "onSale": DetermineBool(onSaleBox.value),
+                    "engineSize": parseInt(engineSizeBox.value),
+                    "img": imgBox.value,
+                    "categoryID": parseInt(categoryIDBox.value)
+                })
+        });
+        //fillManagementDisplay(response.headers.get('location'));
+        clearProducts();
+        filterProductsManagement("size=100&sortOrder=desc");
+    }
+    else {
+        error.innerHTML = "Fill all boxes before submission.";
+        error.hidden = false;
+    }
 }
-function deleteCurrentProduct() {
-
+async function deleteCurrentProduct() {
+    let url = "https://localhost:7096/api/Products/" + getCurrentProduct();
+    await fetch(url, {
+        method: "DELETE",
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        },
+    });
+    console.log("deleted " + getCurrentProduct());
+    clearProducts();
+    filterProductsManagement("size=100&sortOrder=desc");
 }

@@ -23,10 +23,11 @@ builder.Services.AddCors(options =>
         builder
         .WithOrigins("https://localhost:7148")
         .WithHeaders("CarSale-api-Version")
-        .AllowAnyHeader()
-        .AllowAnyMethod();
+        //.AllowAnyHeader()
+        .WithMethods("Access-Control-Allow-Methods", "POST", "DELETE", "PUT")
+        .WithHeaders("Access-Control-Allow-Headers", "Content-Type");
         //.WithHeaders("Content-Type", "application/json")
-        //.WithHeaders("Access-Control-Allow-Methods", "POST")
+        
         //.WithMethods("POST", "PUT", "DELETE", "GET");
     });
 });
