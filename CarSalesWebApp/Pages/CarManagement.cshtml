@@ -99,9 +99,11 @@
         </div>
     </div>
     <div id="products-bg-container">
-        @Html.Label("searchTerm", "Search Term", new {@id="search-term-label"})
-        @Html.TextBox("searchTerm", "", new {@id = "searchTerm", @name="searchTerm"})
-        <button onclick="clearProducts(); setSearchTermManagement()"></button>
+        <div class="container" id="management-search-container">
+        <!--@Html.TextBox("searchTerm", "", new {@id = "searchTerm", @name="searchTerm", @placeholder="Enter search query."})-->
+        <input id="searchTerm" name="searchTerm" placeholder="Enter search query." />
+        <button id="management-search-button" onclick="clearProducts(); setSearchTermManagement()">Search</button>
+        </div>
         <div id="categories-container" class="container-fluid row justify-content-center">
             <a onclick="clearProducts(); setSearchTermManagement('categoryID=1');" id="cat-sedan" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/55/55283.png" /><br /><h5>Sedan</h5></a>
             <a onclick="clearProducts(); setSearchTermManagement('categoryID=2');" id="cat-suv" class="categories-box col"><img src="https://cdn-icons-png.flaticon.com/512/5113/5113923.png" /><h5>SUV</h5></a>

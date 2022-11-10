@@ -504,6 +504,23 @@ label {
     border-radius: 5px;
     max-height: 20vw
 }
-
+#management-search-container {
+    display: flex;
+    justify-content:center;
+    gap: 2vw;
+    padding-left: 2.5vw;
+    padding-right: 2.5vw;
+    
+}
+#searchTerm {
+    width: 40vw;
+    border-radius: 8px;
+}
+#management-search-button {
+    width: 8vw;
+    height: 3.1vh;
+    font-size: 1rem;
+    border-radius: 8px;
+}
 /*#endregion*/
 
