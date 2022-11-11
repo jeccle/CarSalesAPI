@@ -93,7 +93,7 @@ function addEventListeners(products) {
     });
 
 }
-
+// Displays a specified brand within the models box.
 function specificBrandModelBox(products) {
     let modelRow = document.getElementById("model-row-index");
     let modelButton = document.getElementById("model-drop-button");
@@ -124,11 +124,11 @@ function populateModelNames(brand) {
     });
     return modelNames;
 }
-
+// Fills global products list that allows combo boxes to display all models & brands.
 function setGlobalProducts(products) {
     allProducts = products;
 }
-
+// Checks if dropdown menu is already populated.
 function dropDownExists() {
     if (document.body.contains(document.getElementById("brand-drop-button")))
         return true;
@@ -136,6 +136,7 @@ function dropDownExists() {
         return false;
 }
 
+// Creates elements and displays data in page.
 function showProducts(products) {
     let brandDropDown = document.getElementById("brand-drop-button");
     
@@ -250,6 +251,7 @@ function showProductsOnSale(products) {
     productsList.appendChild(table);
 }
 
+// Clears all products within products container.
 function clearProducts() {
     let productsList = document.getElementById("products-container");
     if (document.body.contains(document.getElementById("products-table"))) {
@@ -258,6 +260,7 @@ function clearProducts() {
     }
 }
 
+// Gathers input from textboxes and forms searchTerm.
 function setSearchTerm(input) {
     let brandBox = document.getElementById("brand-drop-button");
     let modelBox = document.getElementById("model-drop-button");
@@ -318,6 +321,7 @@ function setSearchTermManagement(input) {
     //getProducts(searchTerm);
 }
 
+// API requests for display.
 function filterProducts(searchTerm) {
 
     let productsList = document.getElementById("products-container");
@@ -357,7 +361,7 @@ function filterProductsOnSale(searchTerm) {
             console.error(ex);
         });
 }
-
+// Paging methods
 function buttonPageDown() {
     clearProducts();
     currentPage--;
@@ -370,13 +374,16 @@ function buttonPageUp() {
     currentPage = getPage();
     setSearchTerm("page=" + currentPage);
 }
-
 function getPage() {
     if (currentPage == null || currentPage == 0)
         currentPage = 1;
     else if (currentPage == 5)
         currentPage = 4;
     return currentPage;
+}
+// Product selection and display methods.
+function setCurrentProduct(curProduct) {
+    currentProduct = curProduct;
 }
 function getCurrentProduct() {
     return currentProduct;
@@ -393,10 +400,41 @@ function setTextBox(parent, text) {
     let element = document.getElementById(parent);
     element.value = text;
 }
-function setCurrentProduct(curProduct) {
-    currentProduct = curProduct;
+function fillBoxes() {
+    let id = getCurrentProduct();
+    url = "https://localhost:7096/api/Products/" + id;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => { setBoxDetails(data, id); setPopupDetails(data, id) })
+        .catch(ex => {
+            alert("error ");
+            console.error(ex);
+        });
+}
+function fillManagementDisplay(url) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => setPopupDetails(data, id))
+        .catch(ex => {
+            alert("error ");
+            console.error(ex);
+        });
+}
+function setBoxDetails(product, id) {
+    if (id == product.id) {
+        setTextBox("id-management", product.id);
+        setTextBox("brand-management", product.brand);
+        setTextBox("model-management", product.model);
+        setTextBox("year-management", product.year);
+        setTextBox("salePrice-management", product.salePrice);
+        setTextBox("sale-management", BoolToString(product.sale));
+        setTextBox("engineSize-management", product.engineSize);
+        setTextBox("img-management", product.img);
+        setTextBox("category-management", product.categoryID);
+    }
 }
 
+// Element page presence methods, controls visibility of elements within page.
 function showManagementControls() {
     let inputForm = document.getElementById("management-form");
     let managementDetails = document.getElementById("management-details-container");
@@ -422,44 +460,7 @@ function closePopup() {
     let popup = document.getElementById("details-container");
     popup.hidden = true;
 }
-function fillBoxes() {
-    
-    let id = getCurrentProduct();
-    url = "https://localhost:7096/api/Products/" + id;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => { setBoxDetails(data, id); setPopupDetails(data, id) })
-        .catch(ex => {
-            alert("error ");
-            console.error(ex);
-        });
-}
-function fillManagementDisplay(url) {
-    fetch(url)
-        .then(response => response.json())
-        .then(data => setPopupDetails(data, id))
-        .catch(ex => {
-            alert("error ");
-            console.error(ex);
-        });
-}
-function setBoxDetails(product, id) {
-    
-    if (id == product.id) {
-        setTextBox("id-management", product.id);
-        setTextBox("brand-management", product.brand);
-        setTextBox("model-management", product.model);
-        setTextBox("year-management", product.year);
-        setTextBox("salePrice-management", product.salePrice);
-        setTextBox("sale-management", BoolToString(product.sale));
-        setTextBox("engineSize-management", product.engineSize);
-        setTextBox("img-management", product.img);
-        setTextBox("category-management", product.categoryID);
 
-    }
-    
-
-}
 function BoolToString(input) {
     if (input) 
         return "true";
@@ -614,6 +615,8 @@ function buttonClick(parent) {
             break;
     }
 }
+
+// CRUD API calls.
 async function addNewProduct() {
     let brandBox = document.getElementById('brand-management');
     let modelBox = document.getElementById('model-management');

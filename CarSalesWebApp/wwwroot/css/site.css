@@ -56,7 +56,7 @@ h3 {
 #products-container table tr td img {
     width: 100%;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 5px;
     height: 100%;
     border: solid 2px white;
     object-fit: cover;
@@ -479,7 +479,7 @@ label {
         color: black;
         font-weight: 600;
         font-size: 1.1vw;
-        padding-left: 1.75vw
+        padding-left: 0.5vw
     }
     #management-details-container table tr td {
         color: black;
