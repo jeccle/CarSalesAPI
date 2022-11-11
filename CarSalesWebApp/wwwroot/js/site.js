@@ -237,14 +237,14 @@ function showProductsOnSale(products) {
         text.appendChild(document.createTextNode(details));
         if (count % 4 == 0) {
             let row = document.createElement("tr");
-            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + ");"); // fill this with detail view.
+            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + "); showPopup();"); // fill this with detail view.
             cell.appendChild(image);
             cell.appendChild(text);
             row.appendChild(cell);
             table.appendChild(row);
         }
         else {
-            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + ");");
+            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + ");showPopup();");
             cell.appendChild(image);
             cell.appendChild(text);
             table.lastElementChild.appendChild(cell);

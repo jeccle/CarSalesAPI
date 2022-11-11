@@ -318,9 +318,8 @@ label {
         padding-left: 20px;
         margin: 0px;
         font-size: 1vw;
-        font-weight: 200;
         color: white;
-        font-weight: 450;
+        font-weight: 400;
     }
     #details-box table tr td p {
         display: inline-table;
@@ -478,12 +477,12 @@ label {
         margin: auto;
     }
 
-#management-details-container table tr {
-    margin-top: 1vw;
-    height: 2.5vw;
-    border-top: double white 1.5px;
-    width: 100%;
-}
+        #management-details-container table tr {
+            margin-top: 1vw;
+            height: 2.5vw;
+            border-bottom: solid #3c3659 2px;
+            width: 100%;
+        }
     #management-details-container table tr th {
         padding-right: 3vw;
         color: black;
@@ -494,7 +493,7 @@ label {
     #management-details-container table tr td {
         color: black;
         font-size: 1.1vw;
-        font-weight: 300;
+        font-weight: 500;
         padding-right: 2vw;
     }
     #management-details-container table tr td p {
@@ -543,4 +542,15 @@ label {
     margin-bottom: 18px;
 }
 /*#endregion*/
+
+/*#region On sale Page*/
+#onsale-title {
+    margin: auto;
+    color: antiquewhite;
+}
+#onsale-title-container {
+    display: flex;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+}
 
