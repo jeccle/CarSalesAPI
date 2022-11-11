@@ -33,7 +33,6 @@ function populateAllBrandBox(products) {
     
     
 }
-
 function populateAllModelBox(products) {
     let modelRow = document.getElementById("model-row-index");
 
@@ -113,7 +112,6 @@ function specificBrandModelBox(products) {
     
     modelRow.appendChild(modelButton, modelContent);
 }
-
 function populateModelNames(brand) {
 
     let modelNames = [""];
@@ -219,6 +217,38 @@ function showProductsManagement(products) {
     });
     productsList.appendChild(table);
 }
+function showProductsOnSale(products) {
+    let productsList = document.getElementById("products-container");
+    var count = 0;  // Count pointer tracks how many products in the row.
+
+    let table = document.createElement("table");
+    table.id = "products-table";
+    products.forEach(product => {
+        let image = document.createElement("img");
+        let text = document.createElement("p");
+        let cell = document.createElement("td");
+        let details = product.id + " " + product.brand + " " + product.model + " " + product.year + " $" + product.salePrice;
+        image.src = product.img;
+
+        text.appendChild(document.createTextNode(details));
+        if (count % 4 == 0) {
+            let row = document.createElement("tr");
+            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + ");"); // fill this with detail view.
+            cell.appendChild(image);
+            cell.appendChild(text);
+            row.appendChild(cell);
+            table.appendChild(row);
+        }
+        else {
+            cell.setAttribute("onclick", "setCurrentProduct(" + product.id + ");");
+            cell.appendChild(image);
+            cell.appendChild(text);
+            table.lastElementChild.appendChild(cell);
+        }
+        count++;
+    });
+    productsList.appendChild(table);
+}
 
 function clearProducts() {
     let productsList = document.getElementById("products-container");
@@ -312,6 +342,21 @@ function filterProductsManagement(searchTerm) {
             console.error(ex);
         });
 }
+function filterProductsOnSale(searchTerm) {
+    let productsList = document.getElementById("products-container");
+    url = "https://localhost:7096/api/Products?" + searchTerm;
+    fetch(url, {
+        headers: {
+            "CarSales-API-Version": "2.0"
+        }
+    })
+        .then(response => response.json())
+        .then(data => showProductsManagement(data, productsList))
+        .catch(ex => {
+            alert("error ");
+            console.error(ex);
+        });
+}
 
 function buttonPageDown() {
     clearProducts();
@@ -329,8 +374,8 @@ function buttonPageUp() {
 function getPage() {
     if (currentPage == null || currentPage == 0)
         currentPage = 1;
-    else if (currentPage == 4)
-        currentPage = 3;
+    else if (currentPage == 5)
+        currentPage = 4;
     return currentPage;
 }
 function getCurrentProduct() {
@@ -362,7 +407,7 @@ function showPopup() {
     let detailsContainer = document.getElementById("details-container");
     detailsContainer.hidden = false;
     let id = getCurrentProduct();
-    url = "https://localhost:7096/products/Products?id=" + id;
+    url = "https://localhost:7096/api/products/" + id;
     fetch(url)
         .then(response => response.json())
         .then(data => setPopupDetails(data, id))
@@ -380,7 +425,7 @@ function closePopup() {
 function fillBoxes() {
     
     let id = getCurrentProduct();
-    url = "https://localhost:7096/products/Products?id=" + id;
+    url = "https://localhost:7096/api/Products/" + id;
     fetch(url)
         .then(response => response.json())
         .then(data => { setBoxDetails(data, id); setPopupDetails(data, id) })
@@ -611,7 +656,6 @@ async function addNewProduct() {
         error.hidden = false;
     }
 }   
-
 async function editCurrentProduct() {
     let idBox = document.getElementById('id-management');
     let brandBox = document.getElementById('brand-management');
@@ -671,3 +715,5 @@ async function deleteCurrentProduct() {
         idBox.value = "";
     }
 }
+
+

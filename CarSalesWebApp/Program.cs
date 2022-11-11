@@ -4,6 +4,9 @@ using CarSalesWebApp.Data;
 using CarSalesWebApp.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
 var connectionString = builder.Configuration.GetConnectionString("CarSalesWebAppContextConnection") ?? throw new InvalidOperationException("Connection string 'CarSalesWebAppContextConnection' not found.");
 
 builder.Services.AddDbContext<CarSalesWebAppContext>(options =>

@@ -1,0 +1,26 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Bootleg Car Sale";
+}
+<h1>@ViewData["Title"]</h1>
+
+ <div id="products-container"></div>
+
+ @section Scripts {
+     <script>
+     let productsList = document.getElementById("products-container");
+    url = "https://localhost:7096/api/Products?size=100";
+    fetch(url, {
+        headers: {
+            "CarSales-API-Version": "2.0"
+        }
+    })
+        .then(response => response.json())
+        .then(data => showProductsManagement(data, productsList))
+        .catch(ex => {
+            alert("error ");
+            console.error(ex);
+        });
+        </script>
+ }
