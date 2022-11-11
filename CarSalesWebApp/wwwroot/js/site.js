@@ -65,6 +65,9 @@ function populateAllModelBox(products) {
     modelRow.appendChild(modelButton, modelContent);
     
 }
+function populateAllCatBox(products) {
+
+}
 
 function addEventListeners(products) {
     let brandButton = document.getElementById("brand-drop-button");
@@ -427,10 +430,10 @@ function setBoxDetails(product, id) {
         setTextBox("model-management", product.model);
         setTextBox("year-management", product.year);
         setTextBox("salePrice-management", product.salePrice);
-        setTextBox("sale-management", BoolToString(product.sale));
+        setTextBox("sale-management-select", BoolToString(product.sale));
         setTextBox("engineSize-management", product.engineSize);
         setTextBox("img-management", product.img);
-        setTextBox("category-management", product.categoryID);
+        setTextBox("category-management-select", product.categoryID);
     }
 }
 
@@ -500,12 +503,12 @@ function buttonClick(parent) {
     let priceLabel = document.getElementById('salePrice-label-management');
     let priceBox = document.getElementById('salePrice-management');
     let onSaleLabel = document.getElementById('sale-label-management');
-    let onSaleBox = document.getElementById('sale-management');
+    let onSaleBox = document.getElementById('sale-management-select');
     let engineSizeLabel = document.getElementById('engineSize-label-management');
     let engineSizeBox = document.getElementById('engineSize-management');
     let imgBox = document.getElementById('img-management');
     let imgLabel = document.getElementById('img-label-management');
-    let categoryIDBox = document.getElementById('category-management');
+    let categoryIDBox = document.getElementById('category-management-select');
     let categoryIDLabel = document.getElementById('category-label-management');
 
     let addButton = document.getElementById('add-button');

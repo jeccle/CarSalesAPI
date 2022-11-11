@@ -81,7 +81,7 @@ a.navbar-brand {
     border-color: #3C424B;
     margin: 0px 10px;
 }
-select {
+div > select {
     width: 205px;
     text-align: left;
 }
@@ -110,7 +110,7 @@ label {
     height: auto;
 }
 #search-container {
-    padding-top: 20px;
+    padding-top: 10px;
     justify-items: center;
     display: grid;
     
@@ -414,6 +414,16 @@ label {
     width: 100%;
     margin: auto;
 }
+#category-management-select, #sale-management-select {
+    display: inline-block;
+    width: 100%;
+    margin: auto;
+    height: 28px;
+}
+#sale-row {
+    width: 204px;
+    
+}
 .input-button-container {
     width: 40vw;
     display: inline-block;
@@ -525,6 +535,12 @@ label {
     height: 3.1vh;
     font-size: 1rem;
     border-radius: 8px;
+}
+#index-title {
+    z-index: 10;
+    text-decoration: underline;
+    text-underline-position:under;
+    margin-bottom: 18px;
 }
 /*#endregion*/
 

@@ -35,17 +35,30 @@
                     </div>
 
                     <div class="form-row mt-2" id="sale-row">
-                            @Html.Label("sale-management", "On Sale", new {@id = "sale-label-management", @class = "p"})
-                            @Html.TextBox("sale-management", "", new {@id = "sale-management", @name="sale-management", @class="form-management-control"})
+                            @Html.Label("sale-management-select", "On Sale", new {@id = "sale-label-management", @class = "p"})
+                            <!--@Html.TextBox("sale-management", "", new {@id = "sale-management", @name="sale-management", @class="form-management-control"})-->
+                            <select name="sale-management-select" id="sale-management-select">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
                     </div>
                     <div class="form-row mt-2" id="engineSize-row">
                             @Html.Label("engineSize-management", "Engine Size", new {@id = "engineSize-label-management", @class = "p"})
                             @Html.TextBox("engineSize-management", "", new {@id = "engineSize-management", @name="engineSize-management", @class="form-management-control number"})
                     </div>
                     <div class="form-row mt-2" id="category-row">
-                            @Html.Label("category-management", "Category ID", new {@id = "category-label-management", @class = "p"})
-                            @Html.TextBox("category-management", "", new {@id = "category-management", @name="category-management", @class="form-management-control number"})
-                    </div>
+                            @Html.Label("category-management-select", "Category ID", new {@id = "category-label-management", @class = "p"})
+                            <!--@Html.TextBox("category-management", "", new {@id = "category-management", @name="category-management", @class="form-management-control number"})-->
+                        <select name="category-management-select" id="category-management-select">
+                            <option value="1">Sedan</option>
+                            <option value="2">SUV</option>
+                            <option value="3">UTE</option>
+                            <option value="4">4x4</option>
+                            <option value="5">Wagon</option>
+                            <option value="6">Hatchback</option>
+                            <option value="7">2-Door</option>
+                        </select>
+                        </div>
                     <div class="form-row mt-2" id="img-row">
                             @Html.Label("img-management", "Image URL", new {@id = "img-label-management", @class = "p"})
                             @Html.TextBox("img-management", "", new {@id = "img-management", @name="img-management", @class="form-management-control"})
