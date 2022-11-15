@@ -357,6 +357,7 @@ label {
 #manage-title {
     margin-top: 2vw;
     margin-bottom: 2vw;
+    
 }
 #management-form {
     display: inline-block;
@@ -377,7 +378,12 @@ label {
     height: auto;
     text-align:center;
 }
-
+#error-line {
+    color: lightcoral;
+    font-size: 1.2vw;
+    margin-top: 8px;
+    text-align: center;
+}
 #id-row, #brand-row, #model-row, #year-row, #salePrice-row, #sale-row, #engineSize-row, #img-row, #category-row {
     margin: auto;
     display: inline-table;
@@ -553,4 +559,6 @@ label {
     padding-top: 2vw;
     padding-bottom: 2vw;
 }
+/*#endregion*/
 
+/*Identity*/

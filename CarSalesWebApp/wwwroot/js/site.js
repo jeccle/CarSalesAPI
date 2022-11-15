@@ -72,7 +72,7 @@ function populateAllCatBox(products) {
 function addEventListeners(products) {
     let brandButton = document.getElementById("brand-drop-button");
     let modelButton = document.getElementById("model-drop-button");
-
+    let sortByButton = document.getElementById("sortBy-drop-button");
 
     brandButton.addEventListener('change', (e) => {
         if (brandButton.value > 0) {
@@ -93,6 +93,10 @@ function addEventListeners(products) {
         clearProducts();
         setSearchTerm();
         //filterProducts("brand=" + brandButton.value + "&model=" + modelButton.value);
+    });
+    sortByButton.addEventListener('change', (e) => {
+        clearProducts();
+        setSearchTerm();
     });
 
 }
@@ -268,14 +272,14 @@ function setSearchTerm(input) {
     let brandBox = document.getElementById("brand-drop-button");
     let modelBox = document.getElementById("model-drop-button");
     let yearBox = document.getElementById("year");
-    let engineSizeBox = document.getElementById("engineSize");
+    let sortByBox = document.getElementById("sortBy-drop-button");
 
     let searchTerm = "";
     
     let multiQuery = false;
 
-    if (brandBox.value.length > 0 && modelBox.value.length > 0 || yearBox.value.length > 0 && engineSizeBox.value.length > 0
-        || brandBox.value.length > 0 && engineSizeBox.value.length > 0 || yearBox.value.length > 0 && modelBox.value.length > 0
+    if (brandBox.value.length > 0 && modelBox.value.length > 0 || yearBox.value.length > 0 && sortByBox.value.length > 0
+        || brandBox.value.length > 0 && sortByBox.value.length > 0 || yearBox.value.length > 0 && modelBox.value.length > 0
         || yearBox.value.length > 0 && brandBox.value.length > 0) {
         multiQuery = true;
 }
@@ -298,8 +302,8 @@ function setSearchTerm(input) {
             searchTerm += "&";
     }
 
-    if (engineSizeBox.value.length > 0) {
-        searchTerm += "engineSize=" + engineSizeBox.value;
+    if (sortByBox.value.length > 0) {
+        searchTerm += "sortBy=" + sortByBox.value;
     }
     if (input != null)
         if (searchTerm != null)
@@ -430,7 +434,7 @@ function setBoxDetails(product, id) {
         setTextBox("model-management", product.model);
         setTextBox("year-management", product.year);
         setTextBox("salePrice-management", product.salePrice);
-        setTextBox("sale-management-select", BoolToString(product.sale));
+        setTextBox("sale-management-select", BoolToString(product.onSale));
         setTextBox("engineSize-management", product.engineSize);
         setTextBox("img-management", product.img);
         setTextBox("category-management-select", product.categoryID);
@@ -491,7 +495,7 @@ function setPopupDetails(product, id) {
         }
     
 }
-function buttonClick(parent) {
+async function buttonClick(parent) {
     let idLabel = document.getElementById('id-label-management');
     let idBox = document.getElementById('id-management');
     let brandLabel = document.getElementById('brand-label-management');
@@ -544,6 +548,7 @@ function buttonClick(parent) {
             editButton.style = "background-color: #3c3659;";
             deleteButton.style = "background-color: #3c3659;";
             submitButton.style = "background-color: #3c3659;";
+            errorLine.hidden = true;
             break;
 
         case "edit-button":
@@ -571,6 +576,7 @@ function buttonClick(parent) {
             editButton.style = "background-color:  #9999b2;";
             deleteButton.style = "background-color: #3c3659;";
             submitButton.style = "background-color: #3c3659;";
+            errorLine.hidden = true;
             break;
 
         case "delete-button":
@@ -598,18 +604,20 @@ function buttonClick(parent) {
             editButton.style = "background-color:  #3c3659;";
             deleteButton.style = "background-color: #9999b2;";
             submitButton.style = "background-color: #3c3659;";
+            errorLine.hidden = true;
             break;
         case "submit-button":
             if (!addSelected && !editSelected && !delSelected) {
                 errorLine.innerHTML = "Select an operation.";
                 errorLine.hidden = false;
             }
-            else if (addSelected)
-                addNewProduct();
-            else if (editSelected)
-                editCurrentProduct();
-            else if (delSelected)
-                deleteCurrentProduct();
+            else if (addSelected) 
+                await addNewProduct();
+            else if (editSelected) 
+                await editCurrentProduct();
+            else if (delSelected) 
+                await deleteCurrentProduct();
+
             addButton.style = "background-color: #3c3659;";
             editButton.style = "background-color:  #3c3659;";
             deleteButton.style = "background-color: #3c3659;";
@@ -625,10 +633,10 @@ async function addNewProduct() {
     let modelBox = document.getElementById('model-management');
     let yearBox = document.getElementById('year-management');
     let priceBox = document.getElementById('salePrice-management');
-    let onSaleBox = document.getElementById('sale-management');
+    let onSaleBox = document.getElementById('sale-management-select');
     let engineSizeBox = document.getElementById('engineSize-management');
     let imgBox = document.getElementById('img-management');
-    let categoryIDBox = document.getElementById('category-management');
+    let categoryIDBox = document.getElementById('category-management-select');
     let error = document.getElementById("error-line");
 
 
@@ -655,7 +663,9 @@ async function addNewProduct() {
         });
         //fillManagementDisplay(response.headers.get('location'));
         clearProducts();
-        filterProductsManagement("size=100&sortOrder=desc");
+        filterProductsManagement("size=100");
+        error.innerHTML = "Product added.";
+        error.hidden = false;
     }
     else {
         error.innerHTML = "Fill all boxes before submission.";
@@ -668,10 +678,10 @@ async function editCurrentProduct() {
     let modelBox = document.getElementById('model-management');
     let yearBox = document.getElementById('year-management');
     let priceBox = document.getElementById('salePrice-management');
-    let onSaleBox = document.getElementById('sale-management');
+    let onSaleBox = document.getElementById('sale-management-select');
     let engineSizeBox = document.getElementById('engineSize-management');
     let imgBox = document.getElementById('img-management');
-    let categoryIDBox = document.getElementById('category-management');
+    let categoryIDBox = document.getElementById('category-management-select');
     let error = document.getElementById("error-line");
 
     if (brandBox.value.length > 0 && modelBox.value.length > 0 && yearBox.value.length > 0
@@ -698,7 +708,9 @@ async function editCurrentProduct() {
         });
         //fillManagementDisplay(response.headers.get('location'));
         clearProducts();
-        filterProductsManagement("size=100&sortOrder=desc");
+        filterProductsManagement("size=100");
+        error.innerHTML = "Product edited.";
+        error.hidden = false;
     }
     else {
         error.innerHTML = "Fill all boxes before submission.";
@@ -707,6 +719,7 @@ async function editCurrentProduct() {
 }
 async function deleteCurrentProduct() {
     let idBox = document.getElementById("id-management");
+    let error = document.getElementById("error-line");
     if (idBox != null) {
         let url = "https://localhost:7096/api/Products/" + idBox.value;
         await fetch(url, {
@@ -719,6 +732,12 @@ async function deleteCurrentProduct() {
         clearProducts();
         filterProductsManagement("size=100");
         idBox.value = "";
+        error.innerHTML = "Product deleted.";
+        error.hidden = false;
+    }
+    else {
+        error.innerHTML = "Fill all boxes before submission.";
+        error.hidden = false;
     }
 }
 
