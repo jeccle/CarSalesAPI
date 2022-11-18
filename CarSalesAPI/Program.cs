@@ -14,6 +14,7 @@ builder.Services.AddApiVersioning(options =>
     options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
     options.AssumeDefaultVersionWhenUnspecified = true;
 
+    //options.ApiVersionReader = new QueryStringApiVersionReader("CarSales-API-Version");
     options.ApiVersionReader = new HeaderApiVersionReader("CarSales-API-Version");
 });
 
@@ -37,13 +38,8 @@ builder.Services.AddCors(options =>
     {
         builder
         .WithOrigins("https://localhost:7148")
-        //.WithHeaders("CarSale-api-Version")
         .WithHeaders("Access-Control-Allow-Headers", "Content-Type", "CarSales-API-Version")
-        //.WithHeaders("X-Api-Version")
         .WithMethods("Access-Control-Allow-Methods", "POST", "DELETE", "PUT");
-        //.WithHeaders("Content-Type", "application/json")
-
-        //.WithMethods("POST", "PUT", "DELETE", "GET");
     });
 });
 

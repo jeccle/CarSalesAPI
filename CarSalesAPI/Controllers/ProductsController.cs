@@ -7,6 +7,7 @@ namespace CarSalesAPI.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/products")]
+    //[Route("/v{v:apiVersion}/products")]
     [ApiController]
     public class ProductsV1Controller : ControllerBase
     {
@@ -28,8 +29,6 @@ namespace CarSalesAPI.Controllers
 
             if (queryParameters.MaxPrice != null)
                 products = products.Where(p => p.salePrice <= queryParameters.MaxPrice.Value);
-
-
 
             // Search for Car Brand, Car Model, Car Year in searchTerm
             if (!string.IsNullOrEmpty(queryParameters.searchTerm))
@@ -143,6 +142,7 @@ namespace CarSalesAPI.Controllers
     }
     [ApiVersion("2.0")]
     [Route("api/products")]
+    //[Route("/v{v:apiVersion}/products")]
     [ApiController]
     public class ProductsV2Controller : ControllerBase
     {

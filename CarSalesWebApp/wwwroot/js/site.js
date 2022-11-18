@@ -65,9 +65,6 @@ function populateAllModelBox(products) {
     modelRow.appendChild(modelButton, modelContent);
     
 }
-function populateAllCatBox(products) {
-
-}
 
 function addEventListeners(products) {
     let brandButton = document.getElementById("brand-drop-button");

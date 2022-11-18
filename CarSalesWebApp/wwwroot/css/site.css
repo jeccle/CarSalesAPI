@@ -226,7 +226,7 @@ label {
 /*region Popup-form*/
 #details-container {
     position: fixed;
-    background-color: #3c3659;
+    background-color: #68688b;
     width: 33vw;
     margin: auto;
     height: 20vw;
@@ -235,11 +235,11 @@ label {
     bottom: 10vh;
     left: 0;
     z-index: 100;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border: solid black 5px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border: solid black 3px;
 }
 .popup-container {
     margin:auto;
@@ -257,13 +257,13 @@ label {
         top: 1.3vw;
         right: 0;
         bottom: 0;
-        left: 1.17vw;
-        border: solid #9999b2 3px;
+        left: 1.27vw;
+        border: solid black 2px;
         object-fit: cover;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
     }
 #popup-image #car-image {
     width: 30vw;
@@ -279,11 +279,11 @@ label {
     left: 33.4vw;
     height: fit-content;
     max-height: 40vw;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border: solid black;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border: solid black 2px;
 }
 #details-box row {
     display: inline-block;
@@ -368,8 +368,8 @@ label {
     min-height: 16vh;
     background: grey;
     margin-bottom: 2vw;
-    border-radius: 10px;
-    border: double black 5px;
+    border-radius: 4px;
+    border: solid black 2px;
 }
 #management-form h3 {
     font-size: 1.5vw;
@@ -463,14 +463,14 @@ label {
 #management-details-container {
     display: flex;
     background: #7c7c7c;
-    border-radius: 15px;
+    border-radius: 4px;
     margin-bottom: 2vw;
     margin-right: 5vw;
     margin-left: 2vw;
     min-height: 18vh;
     height: auto;
     max-height: 27vw;
-    border: double black 5px;
+    border: solid black 2px;
 }
     #management-details-container table {
         display: grid;
