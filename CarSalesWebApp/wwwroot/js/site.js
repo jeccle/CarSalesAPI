@@ -77,11 +77,11 @@ function addEventListeners(products) {
             setSearchTerm();
         }
         else {
-            if (modelButton.value.length == 0) // If the modelDropDown is empty
-                setGlobalProducts(products);
+            if (modelButton.options == 0) // If the modelDropDown is empty
+                //setGlobalProducts(products);
             clearProducts();
             setSearchTerm();
-            populateAllModelBox(allProducts);
+            populateAllModelBox(products);
         }
         //filterProducts("brand=" + brandButton.value + "&model=" + modelButton.value);
     });
@@ -141,14 +141,15 @@ function dropDownExists() {
 }
 
 // Creates elements and displays data in page.
-function showProducts(products) {
+async function showProducts(products) {
     let brandDropDown = document.getElementById("brand-drop-button");
     
     if (brandDropDown.options.length == 0) {
         // Checks if the dropdown menus have already been loaded in full.
-        addEventListeners(products);
-        populateAllBrandBox(allProducts);
-        populateAllModelBox(allProducts);
+        await ProductsListSet();
+        addEventListeners(allProducts);
+        await populateAllBrandBox(allProducts);
+        await populateAllModelBox(allProducts);
         
     }   
     else if (brandDropDown.value.length > 0) {
@@ -254,10 +255,10 @@ function showProductsOnSale(products) {
     });
     productsList.appendChild(table);
 }
-function ProductsListSet() {
-    let url = "https://carsalesapimanagement.azure-api.net/products";
+async function ProductsListSet() {
+    let url = "https://carsalesapimanagement.azure-api.net/products?size=100";
     //let url = "ht/tps://localhost:7096/api/Products?page=" + currentPage;;
-    fetch(url)
+    await fetch(url)
         .then(response => response.json())
         .then(data => setProductsList(data))
         .catch(ex => {
@@ -320,6 +321,7 @@ function setSearchTerm(input) {
             searchTerm += "&" + input;
         else
             searchTerm += input;
+    clearProducts();
     filterProducts(searchTerm);
     //getProducts(searchTerm);
 }
@@ -346,7 +348,7 @@ function filterProducts(searchTerm) {
     //url = "h/ttps://localhost:7096/Products?" + searchTerm;
     fetch(url)
         .then(response => response.json())
-        .then(data => showProducts(data, productsList))
+        .then(data => showProducts(data))
         .catch(ex => {
             alert("error ");
             console.error(ex);
