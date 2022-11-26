@@ -147,8 +147,8 @@ function showProducts(products) {
     if (brandDropDown.options.length == 0) {
         // Checks if the dropdown menus have already been loaded in full.
         addEventListeners(products);
-        populateAllBrandBox(products);
-        populateAllModelBox(products);
+        populateAllBrandBox(allProducts);
+        populateAllModelBox(allProducts);
         
     }   
     else if (brandDropDown.value.length > 0) {
@@ -254,7 +254,20 @@ function showProductsOnSale(products) {
     });
     productsList.appendChild(table);
 }
-
+function ProductsListSet() {
+    let url = "https://carsalesapimanagement.azure-api.net/products";
+    //let url = "ht/tps://localhost:7096/api/Products?page=" + currentPage;;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => setProductsList(data))
+        .catch(ex => {
+            alert("error ");
+            console.error(ex);
+        });
+}
+function setProductsList(data) {
+    allProducts = data;
+}
 // Clears all products within products container.
 function clearProducts() {
     let productsList = document.getElementById("products-container");
@@ -329,7 +342,8 @@ function setSearchTermManagement(input) {
 function filterProducts(searchTerm) {
 
     let productsList = document.getElementById("products-container");
-    url = "https://localhost:7096/api/Products?" + searchTerm;
+    url = "https://carsalesapimanagement.azure-api.net/products?" + searchTerm;
+    //url = "h/ttps://localhost:7096/Products?" + searchTerm;
     fetch(url)
         .then(response => response.json())
         .then(data => showProducts(data, productsList))
@@ -341,7 +355,7 @@ function filterProducts(searchTerm) {
 }
 function filterProductsManagement(searchTerm) {
     let productsList = document.getElementById("products-container");
-    url = "https://localhost:7096/api/Products?" + searchTerm;
+    url = "https://carsalesapimanagement.azure-api.net/products?" + searchTerm;
     fetch(url)
         .then(response => response.json())
         .then(data => showProductsManagement(data, productsList))
@@ -352,7 +366,7 @@ function filterProductsManagement(searchTerm) {
 }
 function filterProductsOnSale(searchTerm) {
     let productsList = document.getElementById("products-container");
-    url = "https://localhost:7096/api/Products?" + searchTerm;
+    url = "https://carsalesapimanagement.azure-api.net/products?" + searchTerm;
     fetch(url, {
         headers: {
             "CarSales-API-Version": "2.0"
@@ -406,7 +420,7 @@ function setTextBox(parent, text) {
 }
 function fillBoxes() {
     let id = getCurrentProduct();
-    url = "https://localhost:7096/api/Products/" + id;
+    url = "https://carsalesapimanagement.azure-api.net/products/" + id;
     fetch(url)
         .then(response => response.json())
         .then(data => { setBoxDetails(data, id); setPopupDetails(data, id) })
@@ -449,7 +463,7 @@ function showPopup() {
     let detailsContainer = document.getElementById("details-container");
     detailsContainer.hidden = false;
     let id = getCurrentProduct();
-    url = "https://localhost:7096/api/products/" + id;
+    url = "https://carsalesapimanagement.azure-api.net/products/" + id;
     fetch(url)
         .then(response => response.json())
         .then(data => setPopupDetails(data, id))
@@ -640,7 +654,7 @@ async function addNewProduct() {
     if (brandBox.value.length > 0 && modelBox.value.length > 0 && yearBox.value.length > 0
         && priceBox.value.length > 0 && onSaleBox.value.length > 0 && engineSizeBox.value.length > 0) {
         error.hidden = true;
-        let url = "https://localhost:7096/api/Products";
+        let url = "https://carsalesapimanagement.azure-api.net/products";
         let response = await fetch(url, {
             method: "POST",
             headers: {
@@ -684,7 +698,7 @@ async function editCurrentProduct() {
     if (brandBox.value.length > 0 && modelBox.value.length > 0 && yearBox.value.length > 0
         && priceBox.value.length > 0 && onSaleBox.value.length > 0 && engineSizeBox.value.length > 0) {
         error.hidden = true;
-        let url = "https://localhost:7096/api/Products/" + getCurrentProduct();
+        let url = "https://carsalesapimanagement.azure-api.net/products/" + getCurrentProduct();
         let response = await fetch(url, {
             method: "PUT",
             headers: {
@@ -718,7 +732,7 @@ async function deleteCurrentProduct() {
     let idBox = document.getElementById("id-management");
     let error = document.getElementById("error-line");
     if (idBox != null) {
-        let url = "https://localhost:7096/api/Products/" + idBox.value;
+        let url = "https://carsalesapimanagement.azure-api.net/products/" + idBox.value;
         await fetch(url, {
             method: "DELETE",
             headers: {

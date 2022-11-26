@@ -136,7 +136,7 @@
         let managementDetails = document.getElementById("management-details-container");
         inputForm.hidden = true;
         managementDetails.hidden = true;
-        let url = "https://localhost:7096/api/Products?size=100";
+        let url = "https://carsalesapimanagement.azure-api.net/products?size=100";
         fetch(url)
             .then(response => response.json())
             .then(data => showProductsManagement(data))

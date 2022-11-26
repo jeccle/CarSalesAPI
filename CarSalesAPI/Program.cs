@@ -27,6 +27,8 @@ builder.Services.AddVersionedApiExplorer(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
 builder.Services.AddDbContext<CarShopContext>(options =>
 {
     options.UseInMemoryDatabase("Shop");
@@ -37,18 +39,18 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(builder =>
     {
         builder
-        .WithOrigins("https://localhost:7148")
+        .WithOrigins("https://carsaleswebapp.azurewebsites.net", "https://localhost:7148")
         .WithHeaders("Access-Control-Allow-Headers", "Content-Type", "CarSales-API-Version")
-        .WithMethods("Access-Control-Allow-Methods", "POST", "DELETE", "PUT");
+        .WithMethods("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
     });
 });
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseSwagger(); // Moved swagger outside of development as it must be present for azure
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
     app.UseSwaggerUI();
 }
 else
